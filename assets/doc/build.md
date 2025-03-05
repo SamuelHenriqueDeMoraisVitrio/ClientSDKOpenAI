@@ -1,11 +1,4 @@
-# SDK_OpenAI
-This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
-
-<details>
-  <summary><h2>BUILD</h2></summary>
-
-  
-  ---
+---
 
 If you want to compile the project, you can run the following command:
 ```bash
@@ -41,9 +34,3 @@ If you want to build a specific sector I recommend doing:
 ./darwin run_blueprint build -mode folder help
 ```
 This will write all sector instructions to the screen.
-
-
-</details>
-
-
-
