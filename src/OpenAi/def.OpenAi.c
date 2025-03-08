@@ -45,6 +45,6 @@ void BearOpenAi_add_user_prompt(BearOpenAi *self, const char *prompt){
 
 void BearOpenAi_make_questin(BearOpenAi *self){
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
-    char *data = BearHttpsResponse_read_body_str(self);
+    const char *data = BearHttpsResponse_read_body_str(response);
     printf("%s\n",data);
 }
