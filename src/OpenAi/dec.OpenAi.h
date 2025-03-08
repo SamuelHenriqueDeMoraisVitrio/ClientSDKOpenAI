@@ -18,3 +18,4 @@ void BearOpenAi_add_system_prompt(BearOpenAi *bearOpenAi, const char *prompt);
 
 void BearOpenAi_add_user_prompt(BearOpenAi *bearOpenAi, const char *prompt);
 
+void BearOpenAi_make_questin(BearOpenAi *bearOpenAi);
