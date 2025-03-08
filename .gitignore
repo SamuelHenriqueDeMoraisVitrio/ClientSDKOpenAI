@@ -9,5 +9,6 @@ darwin
 realeses
 
 .vscode
-*.out 
-teste.c
+*.out
+
+teste*
