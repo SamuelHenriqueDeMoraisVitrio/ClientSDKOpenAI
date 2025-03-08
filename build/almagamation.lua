@@ -21,7 +21,7 @@ end
 
 function almagamation()
 
-  local one = almagamation_write("src/main.c")
+  local one = almagamation_write("src/one.c")
   local def = almagamation_write("src/imports/imports.def.h")
   local dec = almagamation_write("src/imports/imports.dec.h")
 

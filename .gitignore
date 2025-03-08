@@ -6,4 +6,7 @@ imports
 dependencies
 realeses
 darwin
+realeses
 
+.vscode
+*.out 
