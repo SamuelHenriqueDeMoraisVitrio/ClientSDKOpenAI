@@ -21,3 +21,4 @@ void BearOpenAi_add_system_prompt(OpenAiInterface *bearOpenAi, const char *promp
 void BearOpenAi_add_user_prompt(OpenAiInterface *bearOpenAi, const char *prompt);
 
 OpenAiAnswer * BearOpenAi_make_question(OpenAiInterface *self);
+
