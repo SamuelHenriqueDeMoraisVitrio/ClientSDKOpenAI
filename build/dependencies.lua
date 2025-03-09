@@ -22,7 +22,7 @@ end
 
 local links = {
   {
-    link = "https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.1.002/BearHttpsClientOne.c",
+    link = "https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.1.005/BearHttpsClientOne.c",
     out = "dep.BearClient.h"
   }
 }
