@@ -11,10 +11,11 @@ BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model
     BearOpenAi *self = (BearOpenAi*)BearsslHttps_allocate(sizeof(BearOpenAi));
     self->request = newBearHttpsRequest(url);
     BearHttpsRequest_set_method(self->request, "POST");
-    BearOpenAi_set_model(self, model);
     BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
     self->body_object = BearHttpsRequest_create_cJSONPayloadObject(self->request);
     self->messages = cJSON_CreateArray();
+    BearOpenAi_set_model(self, model);
+    BearOpenAi_set_temperature(self, 0.5);
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
     return self;
 }
@@ -47,5 +48,16 @@ void BearOpenAi_add_user_prompt(BearOpenAi *self, const char *prompt){
 void BearOpenAi_make_questin(BearOpenAi *self){
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
     const char *data = BearHttpsResponse_read_body_str(response);
-    printf("%s\n",data);
+
+    if(BearHttpsResponse_error(response)){
+        printf("error: %s\n",BearHttpsResponse_get_error_msg(response));
+        return;
+    }
+
+    for(int i =0; i <BearHttpsResponse_get_headers_size(response); i++){
+        printf("header %s: %s\n",BearHttpsResponse_get_header_key_by_index(response,i),BearHttpsResponse_get_header_value_by_index(response,i));
+    }
+    printf("valor é: %s\n",data);
+    printf("size é: %d\n",response->body_size);
+    printf("status é: %d\n",response->status_code);
 }
