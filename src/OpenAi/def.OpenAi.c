@@ -71,8 +71,7 @@ OpenAiAnswer * BearOpenAi_make_question(BearOpenAi *self){
         }
 
         
-        
     }
-  
+    return private_newOpenAiAnswer_error(NULL, "Max retry times reached");
 
 }
