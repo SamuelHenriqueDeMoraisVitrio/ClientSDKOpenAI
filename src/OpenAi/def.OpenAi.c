@@ -7,11 +7,12 @@
 
 
 
-BearOpenAi * newBearOpenAi(const char *url, const char *apiKey){
+BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model){
     BearOpenAi *self = (BearOpenAi*)BearsslHttps_allocate(sizeof(BearOpenAi));
     self->request = newBearHttpsRequest(url);
-    BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Barrer %s",apiKey);
     BearHttpsRequest_set_method(self->request, "POST");
+    BearOpenAi_set_model(self, model);
+    BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
     self->body_object = BearHttpsRequest_create_cJSONPayloadObject(self->request);
     self->messages = cJSON_CreateArray();
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);

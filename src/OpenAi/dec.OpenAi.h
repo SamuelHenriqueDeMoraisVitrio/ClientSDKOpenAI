@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 
-BearOpenAi * newBearOpenAi(const char *url, const char *apiKey);
+BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model);
 
 void BearOpenAi_set_temperature(BearOpenAi *bearOpenAi, float temperature);
 
