@@ -69,7 +69,7 @@ OpenAiAnswer * BearOpenAi_make_question(BearOpenAi *self){
             char *error = cJSON_GetStringValue(cJSON_GetObjectItemCaseSensitive(body, "error"));
             return private_newOpenAiAnswer_error(response, error);
         }
-
+        return private_newOpenAiAnswer_ok(response, body);
         
     }
     return private_newOpenAiAnswer_error(NULL, "Max retry times reached");
