@@ -10,6 +10,7 @@
 BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model){
     BearOpenAi *self = (BearOpenAi*)BearsslHttps_allocate(sizeof(BearOpenAi));
     self->request = newBearHttpsRequest(url);
+    self->max_retrys = OPEN_AI_SDK_MAX_RETRY_TIMES;
     BearHttpsRequest_set_method(self->request, "POST");
     BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
     //set cache to 0
@@ -50,19 +51,28 @@ void BearOpenAi_add_user_prompt(BearOpenAi *self, const char *prompt){
     BearOpenAi_add_raw_prompt(self, "user", prompt);
 }
 
-void BearOpenAi_make_questin(BearOpenAi *self){
-    BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
-    const char *data = BearHttpsResponse_read_body_str(response);
+OpenAiAnswer * BearOpenAi_make_question(BearOpenAi *self){
+  
+    for(int i = 0; i  < self->max_retrys;i++){
+        BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
 
-    if(BearHttpsResponse_error(response)){
-        printf("error: %s\n",BearHttpsResponse_get_error_msg(response));
-        return;
-    }
+        cJSON *body = BearHttpsResponse_read_body_json(response);
+        if(BearHttpsResponse_error(response)){
+            char *error = BearHttpsResponse_get_error_msg(response);
+            return private_newOpenAiAnswer_error(response, error);
+        }
+        if(BearHttpsResponse_get_body_size(response) == 0){
+            BearHttpsResponse_free(response);
+            continue;
+        }
+        if(cJSON_GetObjectItemCaseSensitive(body, "error") != NULL){
+            char *error = cJSON_GetStringValue(cJSON_GetObjectItemCaseSensitive(body, "error"));
+            return private_newOpenAiAnswer_error(response, error);
+        }
 
-    for(int i =0; i <BearHttpsResponse_get_headers_size(response); i++){
-        printf("%s: %s\n",BearHttpsResponse_get_header_key_by_index(response,i),BearHttpsResponse_get_header_value_by_index(response,i));
+        
+        
     }
-    printf("valor é: %s\n",data);
-    printf("size é: %d\n",response->body_size);
-    printf("status é: %d\n",response->status_code);
+  
+
 }

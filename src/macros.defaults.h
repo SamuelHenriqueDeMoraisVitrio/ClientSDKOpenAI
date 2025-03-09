@@ -2,12 +2,6 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../imports/imports.macros.h"
+#include "imports/imports.dep.h"
 //silver_chain_scope_end
-
-
-typedef struct OpenAiAnswer{
-    char *error;
-    cJSON *body_object;
-    BearHttpsResponse *response;
-}OpenAiAnswer;
+#define OPEN_AI_SDK_MAX_RETRY_TIMES 20
