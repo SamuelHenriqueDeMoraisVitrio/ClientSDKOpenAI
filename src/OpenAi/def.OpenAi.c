@@ -16,7 +16,6 @@ BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model
     self->body_object = BearHttpsRequest_create_cJSONPayloadObject(self->request);
     self->messages = cJSON_CreateArray();
     BearOpenAi_set_model(self, model);
-    cJSON_AddNumberToObject(self->body_object, "max_tokens", 50);
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
     
     return self;
@@ -27,6 +26,10 @@ void BearOpenAi_set_temperature(BearOpenAi *self, float temperature){
     cJSON_AddNumberToObject(self->body_object, "temperature", temperature);
 }
 
+void BearOpenAi_set_max_tokens(BearOpenAi *self, float temperature){
+    cJSON_DeleteItemFromObjectCaseSensitive(self->body_object, "max_tokens");
+    cJSON_AddNumberToObject(self->body_object, "max_tokens", temperature);
+}
 void BearOpenAi_set_model(BearOpenAi *self, const char *model){
     cJSON_DeleteItemFromObjectCaseSensitive(self->body_object, "model");
     cJSON_AddStringToObject(self->body_object, "model", model);

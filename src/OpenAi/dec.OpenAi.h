@@ -8,6 +8,8 @@
 
 BearOpenAi * newBearOpenAi(const char *url, const char *apiKey,const char *model);
 
+void BearOpenAi_set_max_tokens(BearOpenAi *self, float temperature);
+
 void BearOpenAi_set_temperature(BearOpenAi *bearOpenAi, float temperature);
 
 void BearOpenAi_set_model(BearOpenAi *bearOpenAi, const char *model);
