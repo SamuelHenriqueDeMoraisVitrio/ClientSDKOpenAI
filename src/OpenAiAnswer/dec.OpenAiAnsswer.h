@@ -6,6 +6,8 @@
 //silver_chain_scope_end
 
 
+
+
 OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response,cJSON *body_object);
 
 OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response, cJSON *body_object,char *error);

@@ -6,6 +6,8 @@
 //silver_chain_scope_end
 
 
+
+
 typedef struct OpenAiInterface{
     int max_retrys;
     BearHttpsRequest *request;

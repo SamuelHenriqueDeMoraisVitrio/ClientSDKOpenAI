@@ -6,6 +6,8 @@
 //silver_chain_scope_end
 
 
+
+
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model);
 
 void OpenAiInterface_set_max_tokens(OpenAiInterface *self, float temperature);

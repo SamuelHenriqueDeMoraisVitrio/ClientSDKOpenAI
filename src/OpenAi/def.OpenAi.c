@@ -7,6 +7,8 @@
 
 
 
+
+
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
     self->request = newBearHttpsRequest(url);

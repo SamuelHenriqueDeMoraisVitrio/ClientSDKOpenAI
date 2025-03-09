@@ -6,6 +6,8 @@
 //silver_chain_scope_end
 
 
+
+
 typedef struct OpenAiAnswer{
     char *error;
     cJSON *body_object;
