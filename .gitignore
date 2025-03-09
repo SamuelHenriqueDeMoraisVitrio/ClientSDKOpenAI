@@ -9,6 +9,7 @@ darwin
 realeses
 BearHttpsClient
 .vscode
+curl.sh
 *.out
 
 teste*
