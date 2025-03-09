@@ -55,7 +55,6 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
     for(int i = 0; i  < self->max_retrys;i++){
         BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
-        printf("total de tentativas %d\n",i);
 
         const char *body_str = BearHttpsResponse_read_body_str(response);
         if(BearHttpsResponse_error(response)){
@@ -64,11 +63,7 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
         }
         if(BearHttpsResponse_get_body_size(response) == 0){
 
-            for(int i =0 ; i < response->headers->size;i++){
-                char *key = BearHttpsResponse_get_header_key_by_index(response, i);
-                char *value =BearHttpsResponse_get_header_value_by_index(response, i);
-                printf("%s:%s\n",key,value);
-            }
+
             return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
 
             BearHttpsResponse_free(response);
