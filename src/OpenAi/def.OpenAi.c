@@ -7,7 +7,7 @@
 
 
 
-OpenAiInterface * newBearOpenAi(const char *url, const char *apiKey,const char *model){
+OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
     self->request = newBearHttpsRequest(url);
     self->max_retrys = OPEN_AI_SDK_MAX_RETRY_TIMES;
@@ -16,42 +16,42 @@ OpenAiInterface * newBearOpenAi(const char *url, const char *apiKey,const char *
     //set cache to 0
     self->body_object = BearHttpsRequest_create_cJSONPayloadObject(self->request);
     self->messages = cJSON_CreateArray();
-    BearOpenAi_set_model(self, model);
+    OpenAiInterface_set_model(self, model);
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
     
     return self;
 }
 
-void BearOpenAi_set_temperature(OpenAiInterface *self, float temperature){
+void OpenAiInterface_set_temperature(OpenAiInterface *self, float temperature){
     cJSON_DeleteItemFromObjectCaseSensitive(self->body_object, "temperature");
     cJSON_AddNumberToObject(self->body_object, "temperature", temperature);
 }
 
-void BearOpenAi_set_max_tokens(OpenAiInterface *self, float temperature){
+void OpenAiInterface_set_max_tokens(OpenAiInterface *self, float temperature){
     cJSON_DeleteItemFromObjectCaseSensitive(self->body_object, "max_tokens");
     cJSON_AddNumberToObject(self->body_object, "max_tokens", temperature);
 }
-void BearOpenAi_set_model(OpenAiInterface *self, const char *model){
+void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
     cJSON_DeleteItemFromObjectCaseSensitive(self->body_object, "model");
     cJSON_AddStringToObject(self->body_object, "model", model);
 }
 
-void BearOpenAi_add_raw_prompt(OpenAiInterface *self,const char *role, const char *prompt){
+void OpenAiInterface_add_raw_prompt(OpenAiInterface *self,const char *role, const char *prompt){
     cJSON *prompt_object = cJSON_CreateObject();
     cJSON_AddStringToObject(prompt_object, "role", role);
     cJSON_AddStringToObject(prompt_object, "content", prompt);
     cJSON_AddItemToArray(self->messages, prompt_object);
 }
 
-void BearOpenAi_add_system_prompt(OpenAiInterface *self, const char *prompt){
-    BearOpenAi_add_raw_prompt(self, "system", prompt);
+void OpenAiInterface_add_system_prompt(OpenAiInterface *self, const char *prompt){
+    OpenAiInterface_add_raw_prompt(self, "system", prompt);
 }
 
-void BearOpenAi_add_user_prompt(OpenAiInterface *self, const char *prompt){
-    BearOpenAi_add_raw_prompt(self, "user", prompt);
+void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
+    OpenAiInterface_add_raw_prompt(self, "user", prompt);
 }
 
-OpenAiAnswer * BearOpenAi_make_question(OpenAiInterface *self){
+OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
   
     for(int i = 0; i  < self->max_retrys;i++){
         BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
