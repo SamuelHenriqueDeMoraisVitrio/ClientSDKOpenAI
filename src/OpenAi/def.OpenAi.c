@@ -18,7 +18,7 @@ OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const c
     self->messages = cJSON_CreateArray();
     OpenAiInterface_set_model(self, model);
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
-    
+
     return self;
 }
 
@@ -52,15 +52,25 @@ void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
 }
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
-  
+
     for(int i = 0; i  < self->max_retrys;i++){
         BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
+        printf("total de tentativas %d\n",i);
+
         const char *body_str = BearHttpsResponse_read_body_str(response);
         if(BearHttpsResponse_error(response)){
             char *error = BearHttpsResponse_get_error_msg(response);
             return private_newOpenAiAnswer_error(response, NULL, error);
         }
         if(BearHttpsResponse_get_body_size(response) == 0){
+
+            for(int i =0 ; i < response->headers->size;i++){
+                char *key = BearHttpsResponse_get_header_key_by_index(response, i);
+                char *value =BearHttpsResponse_get_header_value_by_index(response, i);
+                printf("%s:%s\n",key,value);
+            }
+            return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
+
             BearHttpsResponse_free(response);
             continue;
         }
@@ -70,7 +80,7 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
             return private_newOpenAiAnswer_error(response,body, error);
         }
         return private_newOpenAiAnswer_ok(response, body);
-        
+
     }
     return private_newOpenAiAnswer_error(NULL,NULL, "Max retry times reached");
 
