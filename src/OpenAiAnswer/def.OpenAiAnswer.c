@@ -57,3 +57,14 @@ int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
     cJSON *choices = cJSON_GetObjectItemCaseSensitive(self->body_object, "choices");
     return cJSON_GetArraySize(choices);
 }
+
+void OpenAiAnswer_free(OpenAiAnswer *self){
+    if(self->response != NULL){
+        BearHttpsResponse_free(self->response);
+    }
+    if(self->body_object != NULL){
+        cJSON_Delete(self->body_object);
+    }
+
+    BearsslHttps_free(self);
+}
