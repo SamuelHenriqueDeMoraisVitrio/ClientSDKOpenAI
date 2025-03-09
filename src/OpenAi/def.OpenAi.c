@@ -10,6 +10,7 @@
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
     self->request = newBearHttpsRequest(url);
+    BearHttpsRequest_set_max_redirections(self->request, 0);
     self->max_retrys = OPEN_AI_SDK_MAX_RETRY_TIMES;
     BearHttpsRequest_set_method(self->request, "POST");
     BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
@@ -64,7 +65,7 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
         if(BearHttpsResponse_get_body_size(response) == 0){
 
 
-            return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
+            //return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
 
             BearHttpsResponse_free(response);
             continue;
