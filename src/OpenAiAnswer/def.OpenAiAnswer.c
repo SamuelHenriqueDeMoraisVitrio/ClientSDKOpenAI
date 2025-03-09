@@ -40,8 +40,15 @@ const char *OpenAiAnswer_get_answer(OpenAiAnswer *self,int index){
         return NULL;
     }
     cJSON *choice = cJSON_GetArrayItem(choices, index);
-    cJSON *text = cJSON_GetObjectItemCaseSensitive(choice, "text");
-    return cJSON_GetStringValue(text);
+    cJSON *message = cJSON_GetObjectItemCaseSensitive(choice, "message");
+    if(message == NULL){
+        return NULL;
+    }
+    cJSON *content = cJSON_GetObjectItemCaseSensitive(message, "content");
+    if(content == NULL){
+        return NULL;
+    }
+    return cJSON_GetStringValue(content);
 }
 int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
     if(OpenAiAnswer_error(self)){
