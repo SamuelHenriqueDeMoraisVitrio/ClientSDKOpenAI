@@ -13,10 +13,11 @@ OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response,cJSON *body
     self->body_object = body_object;
     return self;
 }
-OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response, char *error){
+OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response, cJSON *body_object,char *error){
     OpenAiAnswer *self = (OpenAiAnswer*)BearsslHttps_allocate(sizeof(OpenAiAnswer));
     *self = (OpenAiAnswer){0};
     self->response = response;
+    self->body_object = body_object;
     self->error = error;
     return self;
 }
@@ -41,4 +42,11 @@ const char *OpenAiAnswer_get_answer(OpenAiAnswer *self,int index){
     cJSON *choice = cJSON_GetArrayItem(choices, index);
     cJSON *text = cJSON_GetObjectItemCaseSensitive(choice, "text");
     return cJSON_GetStringValue(text);
+}
+int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
+    if(OpenAiAnswer_error(self)){
+        return 0;
+    }
+    cJSON *choices = cJSON_GetObjectItemCaseSensitive(self->body_object, "choices");
+    return cJSON_GetArraySize(choices);
 }
