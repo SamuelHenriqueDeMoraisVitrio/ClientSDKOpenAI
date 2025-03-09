@@ -22,3 +22,4 @@ void OpenAiInterface_add_user_prompt(OpenAiInterface *bearOpenAi, const char *pr
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self);
 
+void OpenAiInterface_free(OpenAiInterface *self);

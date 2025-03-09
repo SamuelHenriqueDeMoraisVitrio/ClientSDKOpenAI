@@ -75,3 +75,8 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     return private_newOpenAiAnswer_error(NULL,NULL, "Max retry times reached");
 
 }
+
+void OpenAiInterface_free(OpenAiInterface *self){
+    BearHttpsRequest_free(self->request);
+    BearsslHttps_free(self);
+}
