@@ -63,6 +63,12 @@ void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
     OpenAiInterface_add_raw_prompt(self, "user", prompt);
 }
 
+void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt){
+    OpenAiInterface_add_raw_prompt(self, "assistant", prompt);
+}
+void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt){
+    OpenAiInterface_add_raw_prompt(self, "developer", prompt);
+}
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
@@ -88,7 +94,7 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     
     OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response);
     const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
-    OpenAiInterface_add_raw_prompt(self, "assistant", response_0);
+    OpenAiInterface_add_assistent_prompt(self, response_0);
     return current_answer;
     
 

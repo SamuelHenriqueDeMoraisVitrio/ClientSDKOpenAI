@@ -24,6 +24,10 @@ void OpenAiInterface_add_system_prompt(OpenAiInterface *bearOpenAi, const char *
 
 void OpenAiInterface_add_user_prompt(OpenAiInterface *bearOpenAi, const char *prompt);
 
+void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt);
+
+void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt);
+
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self);
 
 void OpenAiInterface_free(OpenAiInterface *self);
