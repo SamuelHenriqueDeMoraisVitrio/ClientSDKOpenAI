@@ -77,8 +77,11 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
             char *error = cJSON_GetStringValue(cJSON_GetObjectItemCaseSensitive(body, "error"));
             return private_newOpenAiAnswer_error(response,body, error);
         }
-        return private_newOpenAiAnswer_ok(response, body);
-
+        
+        OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response, body);
+        const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
+        OpenAiInterface_add_raw_prompt(self, "assistant", response_0);
+        return current_answer;
     }
     return private_newOpenAiAnswer_error(NULL,NULL, "Max retry times reached");
 
