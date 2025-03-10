@@ -59,15 +59,7 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
     // BearHttpsResponse_set_body_read_props(response, 512, 2);
 
-    
-    unsigned char chunk[2000] = {0};
-
-    while(BearHttpsResponse_read_body_chunck(response,chunk,1000) >0){
-        printf("%s", chunk);
-    }
-    return private_newOpenAiAnswer_error(response, NULL, "testing bodyread");
-    
-
+   
 
     const char *body_str = BearHttpsResponse_read_body_str(response);
     if(BearHttpsResponse_error(response)){
