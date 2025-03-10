@@ -8,9 +8,9 @@
 
 
 
-OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response,cJSON *body_object);
+OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response);
 
-OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response, cJSON *body_object,char *error);
+OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response,char *error);
 
 bool OpenAiAnswer_error(OpenAiAnswer *self);
 

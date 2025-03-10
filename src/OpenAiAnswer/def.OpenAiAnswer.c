@@ -8,21 +8,21 @@
 
 
 
-OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response,cJSON *body_object){
+OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response){
     OpenAiAnswer *self = (OpenAiAnswer*)BearsslHttps_allocate(sizeof(OpenAiAnswer));
     *self = (OpenAiAnswer){0};
     self->response = response;
-    self->body_object = body_object;
+    self->body_object = self->response->json_body;
     return self;
 }
-OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response, cJSON *body_object,char *error){
+OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response,char *error){
     OpenAiAnswer *self = (OpenAiAnswer*)BearsslHttps_allocate(sizeof(OpenAiAnswer));
     *self = (OpenAiAnswer){0};
     self->response = response;
-    self->body_object = body_object;
     self->error = error;
     return self;
 }
+
 bool OpenAiAnswer_error(OpenAiAnswer *self){
     //verify if there is a error on json
     return self->error != NULL;
@@ -63,9 +63,6 @@ int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
 void OpenAiAnswer_free(OpenAiAnswer *self){
     if(self->response != NULL){
         BearHttpsResponse_free(self->response);
-    }
-    if(self->body_object != NULL){
-        cJSON_Delete(self->body_object);
     }
 
     BearsslHttps_free(self);

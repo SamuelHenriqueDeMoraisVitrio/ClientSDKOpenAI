@@ -68,30 +68,25 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
 
 
-    const char *body_str = BearHttpsResponse_read_body_str(response);
+
+    cJSON *body= BearHttpsResponse_read_body_json(response);
+
     if(BearHttpsResponse_error(response)){
         char *error = BearHttpsResponse_get_error_msg(response);
-        return private_newOpenAiAnswer_error(response, NULL, error);
+        return private_newOpenAiAnswer_error(response, error);
     }
-    
-    if(BearHttpsResponse_get_body_size(response) == 0){
-        return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
-    }
-    cJSON *body = cJSON_Parse(body_str);
-    if(body == NULL){
-        return private_newOpenAiAnswer_error(response, NULL, "error parsing body");
-    }
+
     cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
     if(possible_cjson_error != NULL){
         cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
         if(error == NULL){
-            return private_newOpenAiAnswer_error(response,body, "error message not found");
+            return private_newOpenAiAnswer_error(response, "error message not found");
         }
 
-        return private_newOpenAiAnswer_error(response,body, error->valuestring);
+        return private_newOpenAiAnswer_error(response, error->valuestring);
     }
     
-    OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response, body);
+    OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response);
     const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
     OpenAiInterface_add_raw_prompt(self, "assistant", response_0);
     return current_answer;
