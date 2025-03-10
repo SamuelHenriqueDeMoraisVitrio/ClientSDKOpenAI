@@ -2,19 +2,18 @@
 This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
 
 # Install
-for instalation, you need to to have [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient)  
-version 0.2.001 or higher imported on your project before the SDK,if you are on linux , you can just download them with:
+For installation, you need to have [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient)  
+version 0.2.001 or higher imported into your project before the SDK. If you are on Linux, you can download it with:
 ```bash
-
-
-
+# Example command to download BearHttpsClient
+```
 
 # Releases
-| item          | What Is |
-|----------------|-----------|
-| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c)| Single File Version|
-| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.c)| Definitions|
-| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.h)| Declaration|
+| Item           | Description |
+|----------------|-------------|
+| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) | Single File Version |
+| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.c)       | Definitions         |
+| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.h)       | Declaration         |
 
 
 <details>
