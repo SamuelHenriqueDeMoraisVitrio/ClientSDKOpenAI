@@ -5,7 +5,41 @@ This project is a lightweight and efficient SDK for interacting with OpenAI's AP
 For installation, you need to have [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient)  
 version 0.2.001 or higher imported into your project before the SDK. If you are on Linux, you can download it with:
 ```bash
-# Example command to download BearHttpsClient
+curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c -o BearHttpsClientOne.c && 
+curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c -o SDK_OpenAIOne.c
+```
+if you are not on Linux, just download the files [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) and 
+[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) at the same dir.
+
+than,create a main.c file with the following code:
+```c
+
+#include "BearHttpsClientOne.c"
+#include "SDK_OpenAIOne.c"
+
+int main(int argc, char const *argv[]){
+
+    const char *URL = "https://api.openai.com/v1/chat/completions";
+    const char *KEY = "your-key";
+    const char *MODEL = "gpt-3.5-turbo";
+    OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
+
+    OpenAiInterface_add_user_prompt(openAi, "what is the meaning of life?");
+    OpenAiAnswer *answer = OpenAiInterface_make_question(openAi);
+
+    if(OpenAiAnswer_error(answer)){
+        printf("error: %s\n", OpenAiAnswer_get_error_msg(answer));
+        OpenAiInterface_free(openAi);
+        OpenAiAnswer_free(answer);
+        return 1;
+    }
+    const char *first_answer = OpenAiAnswer_get_answer(answer, 0);
+    printf("answer: %s\n", first_answer);
+
+    OpenAiInterface_free(openAi);
+    OpenAiAnswer_free(answer);
+
+}
 ```
 
 # Releases
