@@ -66,20 +66,6 @@ void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
-    // BearHttpsResponse_set_body_read_props(response, 512, 2);
-
-    //printf("remaning: %ld\n",response->extra_body_remaning_to_send);
-    
-    unsigned char chunk[10] = {0};
-
-    while(BearHttpsResponse_read_body_chunck(response,chunk,9) >0){
-        printf("%s", chunk);
-    }
-    return private_newOpenAiAnswer_error(response, NULL, "testing bodyread");
-    
-    
-    printf("readded before %ld\n", response->body_readded);
-    printf("size before %ld\n", response->body_size);
 
 
     const char *body_str = BearHttpsResponse_read_body_str(response);
@@ -87,11 +73,10 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
         char *error = BearHttpsResponse_get_error_msg(response);
         return private_newOpenAiAnswer_error(response, NULL, error);
     }
-    printf("readded %ld\n", response->body_readded);
+    
     if(BearHttpsResponse_get_body_size(response) == 0){
         return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
     }
-
     cJSON *body = cJSON_Parse(body_str);
     if(body == NULL){
         return private_newOpenAiAnswer_error(response, NULL, "error parsing body");
