@@ -12,6 +12,7 @@
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
     self->request = newBearHttpsRequest(url);
+    OpenAiInterface_set_know_ips(self, url);
     BearHttpsRequest_set_method(self->request, "POST");
     BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
     //set cache to 0
@@ -22,6 +23,15 @@ OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const c
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
 
     return self;
+}
+void OpenAiInterface_set_know_ips(OpenAiInterface *self,const char *url){
+    if(strcmp(url,"https://api.openai.com/v1/chat/completions") == 0){
+        const char *open_ai_ips[] = {
+            "172.66.0.243",
+            "162.159.140.245"
+        };
+        BearHttpsRequest_set_known_ips(self->request, open_ai_ips, 2);
+    }
 }
 
 void OpenAiInterface_set_temperature(OpenAiInterface *self, float temperature){

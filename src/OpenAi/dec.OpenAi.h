@@ -10,6 +10,8 @@
 
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model);
 
+void OpenAiInterface_set_know_ips(OpenAiInterface *self,const char *url);
+
 void OpenAiInterface_set_max_tokens(OpenAiInterface *self, float temperature);
 
 void OpenAiInterface_set_temperature(OpenAiInterface *bearOpenAi, float temperature);
