@@ -12,4 +12,5 @@ BearHttpsClient
 curl.sh
 *.out
 
+curl*
 teste*
