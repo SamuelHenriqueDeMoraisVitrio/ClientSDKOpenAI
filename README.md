@@ -10,9 +10,8 @@ version 0.2.001 or higher imported on your project before the SDK,if you are on 
 
 
 # Releases
-
 | item          | What Is |
-|-------        |-----------|
+|----------------|-----------|
 | [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c)| Single File Version|
 | [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.c)| Definitions|
 | [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.h)| Declaration|
