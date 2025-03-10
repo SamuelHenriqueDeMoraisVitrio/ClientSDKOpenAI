@@ -1,10 +1,27 @@
 # SDK_OpenAI
 This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
 
+# Install
+for instalation, you need to to have [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient)  
+version 0.2.001 or higher imported on your project before the SDK,if you are on linux , you can just download them with:
+```bash
+
+
+
+
+# Releases
+
+| item          | What Is |
+|-------        |-----------|
+| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c)| Single File Version|
+| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.c)| Definitions|
+| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.h)| Declaration|
+
+
 <details>
   <summary><h2>BUILD</h2></summary>
 
-  
+
   ---
 
 If you want to compile the project, you can run the following command:
@@ -44,6 +61,3 @@ This will write all sector instructions to the screen.
 
 
 </details>
-
-
-
