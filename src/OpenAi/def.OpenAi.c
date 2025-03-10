@@ -26,7 +26,7 @@ OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const c
 }
 void OpenAiInterface_set_know_ips(OpenAiInterface *self,const char *url){
     if(strcmp(url,"https://api.openai.com/v1/chat/completions") == 0){
-        const char *open_ai_ips[] = {
+        static const char *open_ai_ips[] = {
             "172.66.0.243",
             "162.159.140.245"
         };
@@ -69,14 +69,14 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     // BearHttpsResponse_set_body_read_props(response, 512, 2);
 
     //printf("remaning: %ld\n",response->extra_body_remaning_to_send);
-    /*    
+    
     unsigned char chunk[10] = {0};
 
     while(BearHttpsResponse_read_body_chunck(response,chunk,9) >0){
         printf("%s", chunk);
     }
     return private_newOpenAiAnswer_error(response, NULL, "testing bodyread");
-    */
+    
     
     printf("readded before %ld\n", response->body_readded);
     printf("size before %ld\n", response->body_size);
