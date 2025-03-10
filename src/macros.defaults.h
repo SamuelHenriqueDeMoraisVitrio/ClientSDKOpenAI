@@ -6,4 +6,4 @@
 //silver_chain_scope_end
 
 
-#define OPEN_AI_SDK_MAX_RETRY_TIMES 20
+

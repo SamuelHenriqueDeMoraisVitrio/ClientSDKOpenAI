@@ -12,7 +12,6 @@
 OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
     self->request = newBearHttpsRequest(url);
-    self->max_retrys = OPEN_AI_SDK_MAX_RETRY_TIMES;
     BearHttpsRequest_set_method(self->request, "POST");
     BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
 
@@ -57,54 +56,45 @@ void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
-    for(int i = 0; i  < self->max_retrys;i++){
-        printf("try %d\n", i);
-        BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
-       // BearHttpsResponse_set_body_read_props(response, 512, 2);
+    BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
+    // BearHttpsResponse_set_body_read_props(response, 512, 2);
 
-        
+    
+    unsigned char chunk[2000] = {0};
 
-        /*
-        unsigned char chunk[2000] = {0};
-
-        while(BearHttpsResponse_read_body_chunck(response,chunk,1000) >0){
-            printf("%s", chunk);
-        }
-        return private_newOpenAiAnswer_error(response, NULL, "testing bodyread");
-        */
+    while(BearHttpsResponse_read_body_chunck(response,chunk,1000) >0){
+        printf("%s", chunk);
+    }
+    return private_newOpenAiAnswer_error(response, NULL, "testing bodyread");
     
 
 
-        const char *body_str = BearHttpsResponse_read_body_str(response);
-        if(BearHttpsResponse_error(response)){
-            char *error = BearHttpsResponse_get_error_msg(response);
-            return private_newOpenAiAnswer_error(response, NULL, error);
-        }
-        if(BearHttpsResponse_get_body_size(response) == 0){
-
-
-            return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
-
-          //  BearHttpsResponse_free(response);
-            continue;
-        }
-        cJSON *body = cJSON_Parse(body_str);
-        cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
-        if(possible_cjson_error != NULL){
-            cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
-            if(error == NULL){
-                return private_newOpenAiAnswer_error(response,body, "error message not found");
-            }
-
-            return private_newOpenAiAnswer_error(response,body, error->valuestring);
-        }
-        
-        OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response, body);
-        const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
-        OpenAiInterface_add_raw_prompt(self, "assistant", response_0);
-        return current_answer;
+    const char *body_str = BearHttpsResponse_read_body_str(response);
+    if(BearHttpsResponse_error(response)){
+        char *error = BearHttpsResponse_get_error_msg(response);
+        return private_newOpenAiAnswer_error(response, NULL, error);
     }
-    return private_newOpenAiAnswer_error(NULL,NULL, "Max retry times reached");
+
+    if(BearHttpsResponse_get_body_size(response) == 0){
+        return private_newOpenAiAnswer_error(response, NULL, "dont returned body");
+    }
+    
+    cJSON *body = cJSON_Parse(body_str);
+    cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
+    if(possible_cjson_error != NULL){
+        cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
+        if(error == NULL){
+            return private_newOpenAiAnswer_error(response,body, "error message not found");
+        }
+
+        return private_newOpenAiAnswer_error(response,body, error->valuestring);
+    }
+    
+    OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response, body);
+    const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
+    OpenAiInterface_add_raw_prompt(self, "assistant", response_0);
+    return current_answer;
+    
 
 }
 
