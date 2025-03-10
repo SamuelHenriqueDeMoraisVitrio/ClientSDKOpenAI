@@ -2,14 +2,15 @@
 This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
 
 # Install
-For installation, you need to have [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient)  
-version 0.2.001 or higher imported into your project before the SDK. If you are on Linux, you can download it with:
+
+For Instalation, just download the files [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) and 
+[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) at the same dir.
+
+if you are using linux, you can run the following commands:
 ```bash
 curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c -o BearHttpsClientOne.c && 
 curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c -o SDK_OpenAIOne.c
 ```
-if you are not on Linux, just download the files [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) and 
-[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) at the same dir.
 
 than,create a main.c file with the following code:
 ```c
@@ -41,6 +42,15 @@ int main(int argc, char const *argv[]){
 
 }
 ```
+Note that , these its a simple example, read the [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient) for making 
+more complex builds.
+
+# Suported BearHttpsClient Versions
+| Version   | One File Version                                                                                                       | Definition                                                                                                          | Declaration                                                                                                      |
+|-----------|------------------------------------------------------------------------------------------------------------------------| --------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| 0.2.001   |[BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c)  | [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.c)    | [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.h) |
+
+
 
 # Releases
 | Item           | Description |
