@@ -9,44 +9,108 @@
 
 
 const char *OpenAiResponse_get_error_msg(OpenAiResponse *self){
-return self->error;
+  return self->error;
 }
 
-OpenAiMessage *OpenAiAnswer_get_message(OpenAiResponse *self,int index){
-if(self->in_error){
-return NULL;
+OpenAiMessage *OpenAiResponse_get_message(OpenAiResponse *self,int index){
+  if(self->in_error){
+    return NULL;
+  }
+
+  OpenAiChoices *choices = self->choices;
+
+  if(!choices){
+    return NULL;
+  }
+
+  if(index >= self->choices->size){
+    return NULL;
+  }
+
+  OpenAiMessage *message = self->choices->messages[index];
+
+  if(message == NULL){
+    return NULL;
+  }
+
+  return message;
 }
 
-OpenAiChoices *choices = self->choices;
+const char *OpenAiResponse_get_message_content_raw(OpenAiResponse *self, long index){
+  
+  OpenAiMessage *message = OpenAiResponse_get_message(self, index);
 
-if(!choices){
-return NULL;
+  if(!message){
+    return NULL;
+  }
+
+  return cJSON_PrintUnformatted(message->content);
 }
 
-if(index >= self->choices->size){
-return NULL;
+cJSON *OpenAiResponse_get_message_content_object(OpenAiResponse *self, long index){
+  OpenAiMessage *message = OpenAiResponse_get_message(self, index);
+
+  if(!message){
+    return NULL;
+  }
+
+  return message->content;
 }
 
-OpenAiMessage *message = self->choices->messages[index];
+const char *OpenAiResponse_get_message_content_string(OpenAiResponse *self, long index){
+  OpenAiMessage *message = OpenAiResponse_get_message(self, index);
 
-if(message == NULL){
-return NULL;
+  if(!message){
+    return NULL;
+  }
+
+  return cJSON_GetStringValue(message->content);
 }
 
-return message;
+int OpenAiAnswer_get_response_choice_count(OpenAiResponse *self){
+  if(self->in_error){
+    return 0;
+  }
+
+  OpenAiChoices *choices = self->choices;
+
+  if(!choices){
+    return 0;
+  }
+
+  return choices->size;
 }
 
-int OpenAiAnswer_get_answer_count(OpenAiResponse *self){
-if(self->in_error){
-return 0;
-}
+short OpenAiResponse_get_type_message_content(OpenAiResponse *self, long index){
+  OpenAiMessage *message = OpenAiResponse_get_message(self, index);
 
-OpenAiChoices *choices = self->choices;
+  if(!message){
+    return -1;
+  }
 
-if(!choices){
-return 0;
-}
+  cJSON *content = message->content;
 
-return choices->size;
+  if(cJSON_IsObject(content)){
+    return OPENAI_TYPE_IS_OBJECT;
+  }
+
+  if(cJSON_IsArray(content)){
+    return OPENAI_TYPE_IS_ARRAY;
+  }
+
+  if(cJSON_IsString(content)){
+    return OPENAI_TYPE_IS_STRING;
+  }
+
+  if(cJSON_IsNumber(content)){
+    return OPENAI_TYPE_IS_NUMBER;
+  }
+
+  if(cJSON_IsBool(content)){
+    return OPENAI_TYPE_IS_BOOL;
+  }
+
+  return OPENAI_TYPE_IS_INVALID;
+
 }
 

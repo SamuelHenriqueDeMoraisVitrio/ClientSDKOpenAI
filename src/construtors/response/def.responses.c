@@ -61,18 +61,21 @@ OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const cha
   }
   *self = (OpenAiResponse){0};
   self->response = response;
+
   self->in_error = error_message?true:false;
   self->error = error_message;
+  
   if(self->in_error){
     return self;
   }
+
   self->body = self->response->json_body;
   self->choices = private_new_OpenAi_OpenAiChoices(cJSON_GetObjectItem(self->body, "choices"));
 
   return self;
 }
 
-void private_OpenAi_free_OpenAiResponse(OpenAiResponse *self){
+void OpenAiResponse_free(OpenAiResponse *self){
   if(self){
     if(self->choices){
       private_OpenAi_free_OpenAiChoices(self->choices);

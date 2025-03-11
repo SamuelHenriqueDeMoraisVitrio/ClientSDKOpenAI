@@ -14,7 +14,7 @@ void private_OpenAi_free_OpenAiChoices(OpenAiChoices *self);
 
 OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const char *error_message);
 
-void private_OpenAi_free_OpenAiResponse(OpenAiResponse *self);
+void OpenAiResponse_free(OpenAiResponse *self);
 
 
 
