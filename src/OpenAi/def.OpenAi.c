@@ -51,15 +51,19 @@ void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
 
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
+    #ifdef OPEN_AI_ALLOW_DTW
 
     cJSON *possible_cached = private_OpenAiInterface_get_cache_answer(self);
-    if(possible_cached != NULL){
+    if(possible_cached){
+        return private_newOpenAiAnswer_ok_cached(possible_cached);
     }
+    #endif 
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
 
 
 
     cJSON *body= BearHttpsResponse_read_body_json(response);
+
 
     //printf("\n\tresposta da api:\n%s\n", cJSON_Print(body));
 
@@ -77,7 +81,10 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
         return private_newOpenAiAnswer_error(response, error->valuestring);
     }
-    
+    #ifdef OPEN_AI_ALLOW_DTW
+        privateOpenAiInterface_save_answer_cache(self, body);
+    #endif
+        
     OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response);
     cJSON *messages = OpenAiAnswer_get_messages(current_answer, 0);
     if(messages){
