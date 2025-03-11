@@ -81,7 +81,7 @@ void privateOpenAiInterface_save_answer_cache(OpenAiInterface *self, cJSON *resp
     if(self->preserve_meta_info){
         char *question_path = (char*)malloc(
             strlen(self->cache_dir) +
-            strlen(hash) +
+            sizeof(hash) +
             sizeof("question.json")+
             3
         );
