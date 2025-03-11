@@ -2,6 +2,7 @@
 BearHttpsClientOne.c
 SDK_OpenAI.c
 darwintypes.lua
+cache
 imports
 dependencies
 realeses

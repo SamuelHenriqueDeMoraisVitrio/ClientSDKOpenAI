@@ -2,7 +2,7 @@
 
 function Update_doc()
 
-  local readme = darwin.candango.Render_text(darwin.dtw.load_file("assets/doc/main"))
+  local readme = darwin.candango.Render_text(darwin.dtw.load_file("assets/doc/main.md"))
 
   if readme.exist_error then
     print("\n\tERROR candango is: ", readme.error_message)

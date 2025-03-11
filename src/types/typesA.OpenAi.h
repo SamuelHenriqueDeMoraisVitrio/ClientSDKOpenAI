@@ -10,6 +10,12 @@
 
 typedef struct OpenAiInterface{
     int max_retrys;
+    #ifdef OPEN_AI_ALLOW_DTW
+
+    char *cache_dir;
+    bool cache_enabled;
+    bool preserve_meta_info;
+    #endif 
     BearHttpsRequest *request;
     cJSON *messages;
     cJSON *body_object;

@@ -6,7 +6,10 @@
 //silver_chain_scope_end
 
 
+#ifdef OPEN_AI_ALLOW_DTW
+OpenAiResponse *private_newOpenAiCachedResponse(cJSON *response_body);
 
+#endif 
 
 OpenAiChoices *private_new_OpenAi_OpenAiChoices(cJSON *choices);
 

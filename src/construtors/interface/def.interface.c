@@ -8,6 +8,7 @@
 
 OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const char *model){
     OpenAiInterface *self = (OpenAiInterface*)BearsslHttps_allocate(sizeof(OpenAiInterface));
+    *self = (OpenAiInterface){0};
     self->request = newBearHttpsRequest(url);
     OpenAiInterface_set_know_ips(self, url);
     BearHttpsRequest_set_method(self->request, "POST");
@@ -23,6 +24,10 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
 }
 
 void OpenAiInterface_free(OpenAiInterface *self){
+    if(self->cache_dir){
+        free(self->cache_dir);
+    }
+
     BearHttpsRequest_free(self->request);
     BearsslHttps_free(self);
 }
