@@ -50,46 +50,33 @@ void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
 
 
 
-OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
+OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
 
-    BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
+    BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
 
+    cJSON *body = BearHttpsResponse_read_body_json(response);
 
+    printf("\n\tresposta da api:\n%s\n", cJSON_Print(body));
 
-    cJSON *body= BearHttpsResponse_read_body_json(response);
-
-    //printf("\n\tresposta da api:\n%s\n", cJSON_Print(body));
-
+    exit(0);
+    return NULL;
     if(BearHttpsResponse_error(response)){
         char *error = BearHttpsResponse_get_error_msg(response);
-        return private_newOpenAiAnswer_error(response, error);
+        return private_newOpenAiResponse(response, error);
     }
 
     cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
     if(possible_cjson_error != NULL){
         cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
         if(error == NULL){
-            return private_newOpenAiAnswer_error(response, "error message not found");
+            return private_newOpenAiResponse(response, "error message not found");
         }
 
-        return private_newOpenAiAnswer_error(response, error->valuestring);
+        return private_newOpenAiResponse(response, error->valuestring);
     }
     
-    OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response);
-    cJSON *messages = OpenAiAnswer_get_messages(current_answer, 0);
-    if(messages){
-        if(current_answer->messages_response->type == OPENAI_TYPE_MESSAGE_IS_OBJECT){
-            OpenAiInterface_add_raw_prompt(self, messages);
-            return current_answer;
-        }
-        for(int i=0; i < current_answer->messages_response->size; i++){
-            OpenAiInterface_add_raw_prompt(self, cJSON_GetArrayItem(messages, i));
-        }
-        return current_answer;
-    }
+    OpenAiResponse *current_response = private_newOpenAiResponse(response, NULL);
     return NULL;
-    
-
 }
 
 void OpenAiInterface_free(OpenAiInterface *self){
