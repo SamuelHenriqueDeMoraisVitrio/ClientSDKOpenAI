@@ -33,6 +33,17 @@ OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
     return current_response;
 }
 
+void OpenAiInterface_save_history(OpenAiInterface *self, OpenAiResponse *response, long index){
+    
+    OpenAiMessage *message = OpenAiResponse_get_message(response, index);
+    
+    if(!message){
+        return;
+    }
+
+    OpenAiInterface_add_raw_prompt(self, message->message);
+}
+
 
 
 

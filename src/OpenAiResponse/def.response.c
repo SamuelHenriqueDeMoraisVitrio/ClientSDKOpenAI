@@ -67,7 +67,7 @@ const char *OpenAiResponse_get_message_content_string(OpenAiResponse *self, long
   return cJSON_GetStringValue(message->content);
 }
 
-int OpenAiAnswer_get_response_choice_count(OpenAiResponse *self){
+int OpenAiResponse_get_choice_count(OpenAiResponse *self){
   if(self->in_error){
     return 0;
   }

@@ -9,4 +9,9 @@
 
 OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self);
 
+void OpenAiInterface_save_history(OpenAiInterface *self, OpenAiResponse *response, long index);
+
+
+
+
 

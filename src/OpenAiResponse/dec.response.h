@@ -19,7 +19,7 @@ cJSON *OpenAiResponse_get_message_content_object(OpenAiResponse *self, long inde
 
 const char *OpenAiResponse_get_message_content_string(OpenAiResponse *self, long index);
 
-int OpenAiAnswer_get_response_choice_count(OpenAiResponse *self);
+int OpenAiResponse_get_choice_count(OpenAiResponse *self);
 
 short OpenAiResponse_get_type_message_content(OpenAiResponse *self, long index);
 
