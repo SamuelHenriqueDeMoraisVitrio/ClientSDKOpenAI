@@ -13,4 +13,6 @@ void OpenAiInterface_allow_cache(OpenAiInterface *self);
 void OpenAiInterface_disallow_cache(OpenAiInterface *self);
 
 cJSON *private_OpenAiInterface_get_cache_answer(OpenAiInterface *self);
+
+void privateOpenAiInterface_save_answer_cache(OpenAiInterface *self, cJSON *response);
 #endif 

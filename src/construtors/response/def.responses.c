@@ -79,8 +79,6 @@ OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const cha
     printf("\n\tError:. Dont create OpenAiResponse;\n");
     exit(1);
   }
-    *self = (OpenAiResponse){0};
-
   *self = (OpenAiResponse){0};
   self->response = response;
 

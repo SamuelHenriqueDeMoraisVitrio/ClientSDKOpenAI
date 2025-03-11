@@ -34,10 +34,10 @@ OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
 
         return private_newOpenAiResponse(response, error->valuestring);
     }
+
     #ifdef OPEN_AI_ALLOW_DTW
-    privateOpenAiInterface_save_answer_cache(self, body);
+        privateOpenAiInterface_save_answer_cache(self, body);
     #endif
-    
 
     return  private_newOpenAiResponse(response, NULL);
 }
