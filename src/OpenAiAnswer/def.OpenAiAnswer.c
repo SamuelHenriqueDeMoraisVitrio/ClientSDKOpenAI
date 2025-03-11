@@ -13,6 +13,7 @@ OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response){
     *self = (OpenAiAnswer){0};
     self->response = response;
     self->body_object = self->response->json_body;
+    self->messages_response = (OpenAiMessages*)BearsslHttps_allocate(sizeof(OpenAiMessages));
     return self;
 }
 OpenAiAnswer *private_newOpenAiAnswer_error(BearHttpsResponse *response,char *error){
@@ -32,7 +33,7 @@ const char *OpenAiAnswer_get_error_msg(OpenAiAnswer *self){
     return self->error;
 }
 
-const char *OpenAiAnswer_get_answer(OpenAiAnswer *self,int index){
+cJSON *OpenAiAnswer_get_messages(OpenAiAnswer *self,int index){
     if(OpenAiAnswer_error(self)){
         return NULL;
     }
@@ -46,12 +47,21 @@ const char *OpenAiAnswer_get_answer(OpenAiAnswer *self,int index){
     if(message == NULL){
         return NULL;
     }
-    cJSON *content = cJSON_GetObjectItemCaseSensitive(message, "content");
-    if(content == NULL){
+    self->messages_response->type = 0;
+    if(cJSON_IsArray(message)){
+        self->messages_response->type = OPENAI_TYPE_MESSAGE_IS_ARRAY;
+        self->messages_response->size = cJSON_GetArraySize(message);
+    }
+    if(cJSON_IsObject(message)){
+        self->messages_response->type = OPENAI_TYPE_MESSAGE_IS_OBJECT;
+        self->messages_response->size = 1;
+    }
+    if(self->messages_response->type == 0){
         return NULL;
     }
-    return cJSON_GetStringValue(content);
+    return message;
 }
+
 int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
     if(OpenAiAnswer_error(self)){
         return 0;
@@ -62,6 +72,9 @@ int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
 
 void OpenAiAnswer_free(OpenAiAnswer *self){
     if(self->response != NULL){
+        if(self->messages_response){
+            //BearsslHttps_free(self->messages_response);
+        }
         BearHttpsResponse_free(self->response);
     }
 

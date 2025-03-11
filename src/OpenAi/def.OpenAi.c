@@ -48,27 +48,8 @@ void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
     cJSON_AddStringToObject(self->body_object, "model", model);
 }
 
-void OpenAiInterface_add_raw_prompt(OpenAiInterface *self,const char *role, const char *prompt){
-    cJSON *prompt_object = cJSON_CreateObject();
-    cJSON_AddStringToObject(prompt_object, "role", role);
-    cJSON_AddStringToObject(prompt_object, "content", prompt);
-    cJSON_AddItemToArray(self->messages, prompt_object);
-}
 
-void OpenAiInterface_add_system_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_raw_prompt(self, "system", prompt);
-}
 
-void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_raw_prompt(self, "user", prompt);
-}
-
-void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_raw_prompt(self, "assistant", prompt);
-}
-void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_raw_prompt(self, "developer", prompt);
-}
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
@@ -76,6 +57,8 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
 
     cJSON *body= BearHttpsResponse_read_body_json(response);
+
+    //printf("\n\tresposta da api:\n%s\n", cJSON_Print(body));
 
     if(BearHttpsResponse_error(response)){
         char *error = BearHttpsResponse_get_error_msg(response);
@@ -93,9 +76,18 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     }
     
     OpenAiAnswer *current_answer = private_newOpenAiAnswer_ok(response);
-    const char *response_0 = OpenAiAnswer_get_answer(current_answer, 0);
-    OpenAiInterface_add_assistent_prompt(self, response_0);
-    return current_answer;
+    cJSON *messages = OpenAiAnswer_get_messages(current_answer, 0);
+    if(messages){
+        if(current_answer->messages_response->type == OPENAI_TYPE_MESSAGE_IS_OBJECT){
+            OpenAiInterface_add_raw_prompt(self, messages);
+            return current_answer;
+        }
+        for(int i=0; i < current_answer->messages_response->size; i++){
+            OpenAiInterface_add_raw_prompt(self, cJSON_GetArrayItem(messages, i));
+        }
+        return current_answer;
+    }
+    return NULL;
     
 
 }

@@ -18,15 +18,7 @@ void OpenAiInterface_set_temperature(OpenAiInterface *bearOpenAi, float temperat
 
 void OpenAiInterface_set_model(OpenAiInterface *bearOpenAi, const char *model);
 
-void OpenAiInterface_add_raw_prompt(OpenAiInterface *bearOpenAI,const char *role, const char *prompt);
 
-void OpenAiInterface_add_system_prompt(OpenAiInterface *bearOpenAi, const char *prompt);
-
-void OpenAiInterface_add_user_prompt(OpenAiInterface *bearOpenAi, const char *prompt);
-
-void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt);
-
-void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt);
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self);
 

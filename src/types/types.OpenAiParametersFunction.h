@@ -6,16 +6,7 @@
 //silver_chain_scope_end
 
 
-typedef struct OpenAiMessages{
-    int type;
-    long size;
-}OpenAiMessages;
 
-typedef struct OpenAiAnswer{
-    char *error;
-    cJSON *body_object;
-    BearHttpsResponse *response;
-    OpenAiMessages *messages_response;
-}OpenAiAnswer;
+
 
 

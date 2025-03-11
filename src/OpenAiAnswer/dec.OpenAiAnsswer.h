@@ -17,7 +17,7 @@ bool OpenAiAnswer_error(OpenAiAnswer *self);
 
 const char *OpenAiAnswer_get_error_msg(OpenAiAnswer *self);
 
-const char *OpenAiAnswer_get_answer(OpenAiAnswer *self,int index);
+cJSON *OpenAiAnswer_get_messages(OpenAiAnswer *self,int index);
 
 int OpenAiAnswer_get_answer_count(OpenAiAnswer *self);
 
