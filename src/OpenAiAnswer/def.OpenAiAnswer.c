@@ -70,7 +70,17 @@ cJSON *OpenAiAnswer_get_messages(OpenAiAnswer *self,int index){
     }
     return message;
 }
-
+const char  *OpenAiAnswer_get_messages_str(OpenAiAnswer *self,int index){
+    cJSON *messages = OpenAiAnswer_get_messages(self, index);
+    if(messages == NULL){
+        return NULL;
+    }
+    cJSON *content = cJSON_GetObjectItemCaseSensitive(messages, "content");
+    if(content == NULL){
+        return NULL;
+    }
+    return content->valuestring;
+}
 int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
     if(OpenAiAnswer_error(self)){
         return 0;

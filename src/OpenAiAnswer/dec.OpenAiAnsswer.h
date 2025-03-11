@@ -22,6 +22,8 @@ const char *OpenAiAnswer_get_error_msg(OpenAiAnswer *self);
 
 cJSON *OpenAiAnswer_get_messages(OpenAiAnswer *self,int index);
 
+const char  *OpenAiAnswer_get_messages_str(OpenAiAnswer *self,int index);
+
 int OpenAiAnswer_get_answer_count(OpenAiAnswer *self);
 
 void OpenAiAnswer_free(OpenAiAnswer *self);
