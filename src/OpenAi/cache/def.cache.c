@@ -1,4 +1,3 @@
-#define OPEN_AI_ALLOW_DTW
 
 //silver_chain_scope_start
 //DONT MODIFY THIS COMMENT

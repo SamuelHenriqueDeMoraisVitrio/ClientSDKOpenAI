@@ -52,6 +52,9 @@ void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
 
 OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
 
+    cJSON *possible_cached = private_OpenAiInterface_get_cache_answer(self);
+    if(possible_cached != NULL){
+    }
     BearHttpsResponse *response =BearHttpsRequest_fetch(self->request);
 
 

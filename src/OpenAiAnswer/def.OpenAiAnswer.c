@@ -1,3 +1,4 @@
+
 //silver_chain_scope_start
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
@@ -6,8 +7,16 @@
 //silver_chain_scope_end
 
 
-
-
+#ifdef OPEN_AI_ALLOW_DTW
+OpenAiAnswer *private_newOpenAiAnswer_ok_cached(cJSON *body_cached){
+    OpenAiAnswer *self = (OpenAiAnswer*)BearsslHttps_allocate(sizeof(OpenAiAnswer));
+    *self = (OpenAiAnswer){0};
+    self->body_object = body_cached;
+    self->free_body = true;
+    self->messages_response = (OpenAiMessages*)BearsslHttps_allocate(sizeof(OpenAiMessages));
+    return self;
+}
+#endif 
 OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response){
     OpenAiAnswer *self = (OpenAiAnswer*)BearsslHttps_allocate(sizeof(OpenAiAnswer));
     *self = (OpenAiAnswer){0};
@@ -71,12 +80,11 @@ int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
 }
 
 void OpenAiAnswer_free(OpenAiAnswer *self){
-    if(self->response != NULL){
-        if(self->messages_response){
-            //BearsslHttps_free(self->messages_response);
-        }
+    if(self->messages_response){
         BearHttpsResponse_free(self->response);
     }
-
+    if(self->free_body){
+        cJSON_Delete(self->body_object);
+    }
     BearsslHttps_free(self);
 }

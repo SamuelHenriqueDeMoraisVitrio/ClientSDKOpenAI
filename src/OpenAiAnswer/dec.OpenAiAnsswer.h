@@ -6,7 +6,10 @@
 //silver_chain_scope_end
 
 
+#ifdef OPEN_AI_ALLOW_DTW
 
+OpenAiAnswer *private_newOpenAiAnswer_ok_cached(cJSON *body_cached);
+#endif 
 
 OpenAiAnswer *private_newOpenAiAnswer_ok(BearHttpsResponse *response);
 

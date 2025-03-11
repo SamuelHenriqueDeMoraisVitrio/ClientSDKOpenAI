@@ -14,6 +14,7 @@ typedef struct OpenAiMessages{
 typedef struct OpenAiAnswer{
     char *error;
     cJSON *body_object;
+    bool free_body;
     BearHttpsResponse *response;
     OpenAiMessages *messages_response;
 }OpenAiAnswer;
