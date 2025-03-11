@@ -80,11 +80,15 @@ int OpenAiAnswer_get_answer_count(OpenAiAnswer *self){
 }
 
 void OpenAiAnswer_free(OpenAiAnswer *self){
-    if(self->messages_response){
+    if(self->response){
         BearHttpsResponse_free(self->response);
     }
+
     if(self->free_body){
         cJSON_Delete(self->body_object);
+    }
+    if(self->messages_response){
+        BearsslHttps_free(self->messages_response);
     }
     BearsslHttps_free(self);
 }
