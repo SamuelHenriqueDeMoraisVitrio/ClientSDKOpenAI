@@ -24,6 +24,10 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
 }
 
 void OpenAiInterface_free(OpenAiInterface *self){
+    if(self->cache_dir){
+        free(self->cache_dir);
+    }
+
     BearHttpsRequest_free(self->request);
     BearsslHttps_free(self);
 }

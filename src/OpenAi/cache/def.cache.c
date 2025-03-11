@@ -52,7 +52,6 @@ cJSON *private_OpenAiInterface_get_cache_answer(OpenAiInterface *self){
 
     char hash[65] = {0};
     private_OpenAiInterface_digest_cache_entries(self, hash);
-
     char *path = private_OpenAiIntereface_get_cache_answer_json_path(self, hash);
     cJSON *response = NULL;
     if(dtw_entity_type(path) == DTW_FILE_TYPE){
