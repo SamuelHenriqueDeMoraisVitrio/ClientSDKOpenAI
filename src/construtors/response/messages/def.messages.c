@@ -28,12 +28,13 @@ OpenAiMessage *private_newOpenAiMessage(cJSON *object_message){
 }
 
 void private_OpenAi_free_OpenAiMessage(OpenAiMessage *self){
-  if(self){
-    if(self->functions){
-      private_OpenAi_free_ObjectTool_Functions(self->functions);
-    }
-    BearsslHttps_free(self);
+  if(!self){
+    return;
   }
+  if(self->functions){
+      private_OpenAi_free_ObjectTool_Functions(self->functions);
+  }
+  BearsslHttps_free(self);
 }
 
 

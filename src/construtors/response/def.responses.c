@@ -40,18 +40,22 @@ OpenAiChoices *private_new_OpenAi_OpenAiChoices(cJSON *choices){
 }
 
 void private_OpenAi_free_OpenAiChoices(OpenAiChoices *self){
-  if(self){
-    if(self->messages){
-      for(int i=0; i < self->size; i++){
-        if(self->messages[i]){
-          private_OpenAi_free_OpenAiMessage(self->messages[i]);
-        }
-      }
-      BearsslHttps_free(self->messages);
-    }
-    BearsslHttps_free(self);
+  if(!self){
+    return;
   }
+  for(int i=0; i < self->size; i++){
+      if(self->messages[i]){
+        private_OpenAi_free_OpenAiMessage(self->messages[i]);
+      }
+    
+  }
+  if(self->messages){
+    BearsslHttps_free(self->messages);
+  }  
+   BearsslHttps_free(self);
 }
+
+
 #ifdef OPEN_AI_ALLOW_DTW
 OpenAiResponse *private_newOpenAiCachedResponse(cJSON *response_body){
   OpenAiResponse *self = (OpenAiResponse *)BearsslHttps_allocate(sizeof(OpenAiResponse));
@@ -61,7 +65,7 @@ OpenAiResponse *private_newOpenAiCachedResponse(cJSON *response_body){
   }
 
   *self = (OpenAiResponse){0};
-
+  self->body_owner = true;
   self->body = response_body;
   self->choices = private_new_OpenAi_OpenAiChoices(cJSON_GetObjectItem(self->body, "choices"));
 
@@ -94,12 +98,17 @@ OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const cha
 }
 
 void OpenAiResponse_free(OpenAiResponse *self){
-  if(self){
-    if(self->choices){
-      private_OpenAi_free_OpenAiChoices(self->choices);
-    }
-    BearsslHttps_free(self);
+  if(!self){
+    return;
   }
+  if(self->response){
+    BearHttpsResponse_free(self->response);
+  }
+  if(self->body_owner){
+    cJSON_Delete(self->body);
+  }
+  private_OpenAi_free_OpenAiChoices(self->choices);  
+    BearsslHttps_free(self);
 }
 
 

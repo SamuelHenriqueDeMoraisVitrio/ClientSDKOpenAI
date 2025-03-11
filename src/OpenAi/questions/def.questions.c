@@ -38,8 +38,8 @@ OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
     privateOpenAiInterface_save_answer_cache(self, body);
     #endif
     
-    OpenAiResponse *current_response = private_newOpenAiResponse(response, NULL);
-    return current_response;
+
+    return  private_newOpenAiResponse(response, NULL);
 }
 
 
