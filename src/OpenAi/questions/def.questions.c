@@ -9,7 +9,13 @@
 
 
 OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
+    #ifdef OPEN_AI_ALLOW_DTW
+      cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
+      if(cached_json){
+          return private_newOpenAiCachedResponse(cached_json);
+      }
 
+    #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
 
     cJSON *body = BearHttpsResponse_read_body_json(response);
@@ -28,6 +34,9 @@ OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
 
         return private_newOpenAiResponse(response, error->valuestring);
     }
+    #ifdef OPEN_AI_ALLOW_DTW
+    privateOpenAiInterface_save_answer_cache(self, body);
+    #endif
     
     OpenAiResponse *current_response = private_newOpenAiResponse(response, NULL);
     return current_response;

@@ -52,6 +52,22 @@ void private_OpenAi_free_OpenAiChoices(OpenAiChoices *self){
     BearsslHttps_free(self);
   }
 }
+#ifdef OPEN_AI_ALLOW_DTW
+OpenAiResponse *private_newOpenAiCachedResponse(cJSON *response_body){
+  OpenAiResponse *self = (OpenAiResponse *)BearsslHttps_allocate(sizeof(OpenAiResponse));
+  if(!self){
+    printf("\n\tError:. Dont create OpenAiResponse;\n");
+    exit(1);
+  }
+
+  *self = (OpenAiResponse){0};
+
+  self->body = response_body;
+  self->choices = private_new_OpenAi_OpenAiChoices(cJSON_GetObjectItem(self->body, "choices"));
+
+  return self;
+}
+#endif 
 
 OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const char *error_message){
   OpenAiResponse *self = (OpenAiResponse *)BearsslHttps_allocate(sizeof(OpenAiResponse));
@@ -59,6 +75,8 @@ OpenAiResponse *private_newOpenAiResponse(BearHttpsResponse *response, const cha
     printf("\n\tError:. Dont create OpenAiResponse;\n");
     exit(1);
   }
+    *self = (OpenAiResponse){0};
+
   *self = (OpenAiResponse){0};
   self->response = response;
 
