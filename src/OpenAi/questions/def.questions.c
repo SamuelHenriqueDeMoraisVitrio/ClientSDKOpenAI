@@ -49,8 +49,8 @@ void OpenAiInterface_save_history(OpenAiInterface *self, OpenAiResponse *respons
     if(!message){
         return;
     }
-
-    OpenAiInterface_add_raw_prompt(self, message->message);
+    cJSON *copy = cJSON_Duplicate(message->message, true);
+    OpenAiInterface_add_raw_prompt(self, copy);
 }
 
 
