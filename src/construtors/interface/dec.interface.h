@@ -6,8 +6,8 @@
 //silver_chain_scope_end
 
 
-void OpenAiInterface_add_tools_raw(OpenAiInterface *self, cJSON *object);
+OpenAiInterface * newOpenAiInterface(const char *url, const char *apiKey,const char *model);
 
-void OpenAiInterface_add_function_by_tools(const char *name_function, const char *description, bool strict, cJSON *parameters);
+void OpenAiInterface_free(OpenAiInterface *self);
 
 
