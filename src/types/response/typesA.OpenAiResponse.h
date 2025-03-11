@@ -11,6 +11,7 @@ struct OpenAiResponse{
     bool in_error;
     const char *error;
     cJSON *body;
+    bool body_owner;
     OpenAiChoices *choices;
 };
 
