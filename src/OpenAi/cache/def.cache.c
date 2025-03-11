@@ -41,7 +41,7 @@ char *private_OpenAiIntereface_get_cache_answer_json_path(OpenAiInterface *self 
         sizeof("answer.json")+
         3
     );
-    sprintf(path, "%s/%s.answer.json", self->cache_dir, entres_buff);
+    sprintf(path, "%s/%s/answer.json", self->cache_dir, entres_buff);
     return path;
 }
 
@@ -50,10 +50,10 @@ cJSON *private_OpenAiInterface_get_cache_answer(OpenAiInterface *self){
         return NULL;
     }
 
-    char hash[33] = {0};
+    char hash[65] = {0};
     private_OpenAiInterface_digest_cache_entries(self, hash);
+
     char *path = private_OpenAiIntereface_get_cache_answer_json_path(self, hash);
-    
     cJSON *response = NULL;
     if(dtw_entity_type(path) == DTW_FILE_TYPE){
         char *content = dtw_load_string_file_content(path);
@@ -70,9 +70,9 @@ void privateOpenAiInterface_save_answer_cache(OpenAiInterface *self, cJSON *resp
     if(!self->cache_enabled){
         return;
     }
-    
-    char hash[33] = {0};
+    char hash[65] = {0};
     private_OpenAiInterface_digest_cache_entries(self, hash);
+    
     char *path = private_OpenAiIntereface_get_cache_answer_json_path(self, hash);
     char *content = cJSON_Print(response);
     dtw_write_string_file_content(path, content);
@@ -84,7 +84,7 @@ void privateOpenAiInterface_save_answer_cache(OpenAiInterface *self, cJSON *resp
             sizeof("question.json")+
             3
         );
-        sprintf(question_path, "%s/%s.question.json", self->cache_dir, hash);
+        sprintf(question_path, "%s/%s/question.json", self->cache_dir, hash);
         char *question_content = cJSON_Print(self->body_object);
         dtw_write_string_file_content(question_path, question_content);
         free(question_content);
