@@ -89,11 +89,18 @@ OpenAiAnswer * OpenAiInterface_make_question(OpenAiInterface *self){
     cJSON *messages = OpenAiAnswer_get_messages(current_answer, 0);
     if(messages){
         if(current_answer->messages_response->type == OPENAI_TYPE_MESSAGE_IS_OBJECT){
-            OpenAiInterface_add_raw_prompt(self, messages);
+            cJSON *duplicated = cJSON_Duplicate(messages, true);
+            OpenAiInterface_add_raw_prompt(self, duplicated);
             return current_answer;
         }
         for(int i=0; i < current_answer->messages_response->size; i++){
-            OpenAiInterface_add_raw_prompt(self, cJSON_GetArrayItem(messages, i));
+
+            cJSON *current_message = cJSON_GetArrayItem(messages, i);
+            if(current_message == NULL){
+                continue;
+            }
+            cJSON *duplicated = cJSON_Duplicate(current_message, true);
+            OpenAiInterface_add_raw_prompt(self, duplicated);
         }
         return current_answer;
     }
