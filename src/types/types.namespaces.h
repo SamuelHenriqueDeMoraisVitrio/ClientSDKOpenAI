@@ -16,4 +16,5 @@ typedef struct OpenAiObjectTool_Functions OpenAiObjectTool_Functions;
 
 typedef struct OpenAiCallFunction OpenAiCallFunction;
 
+typedef struct OpenAiInterface OpenAiInterface;
 

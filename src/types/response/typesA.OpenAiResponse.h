@@ -40,11 +40,6 @@ struct OpenAiCallFunction{
     const char *arguments;
 };
 
-typedef struct OpenAiAnswer{
-    char *error;
-    cJSON *body_object;
-    BearHttpsResponse *response;
-    OpenAiMessage *messages_response;
-}OpenAiAnswer;
+
 
 

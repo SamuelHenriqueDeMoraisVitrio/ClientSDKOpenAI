@@ -2,16 +2,16 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../imports/imports.types.h"
+#include "../../imports/imports.types.h"
 //silver_chain_scope_end
 
 
 
 
-typedef struct OpenAiInterface{
+struct OpenAiInterface{
     int max_retrys;
     BearHttpsRequest *request;
     cJSON *messages;
     cJSON *body_object;
 
-}OpenAiInterface;
+};
