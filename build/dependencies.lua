@@ -24,7 +24,11 @@ local links = {
   {
     link = "https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c",
     out = "dep.BearClient.h"
-  }
+  },
+  {
+    link = "https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h",
+    out = "dep.doTheWorld.h"
+  },
 }
 
 ---@return nil
