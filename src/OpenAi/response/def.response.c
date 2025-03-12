@@ -5,7 +5,7 @@
 #include "../../imports/imports.dec.h"
 //silver_chain_scope_end
 
-cJSON * OpenAiInterface_get_response(OpenAiInterface *self, long index){
+cJSON * OpenAiInterface_get_response_cJSON(OpenAiInterface *self, long index){
   
     
     int size = cJSON_GetArraySize(self->response_array);
@@ -16,6 +16,7 @@ cJSON * OpenAiInterface_get_response(OpenAiInterface *self, long index){
     if(index < 0 || index >= size){
         return NULL;
     }
+    printf("index: %d\n", index);
 
     return cJSON_GetArrayItem(self->response_array, index);
 

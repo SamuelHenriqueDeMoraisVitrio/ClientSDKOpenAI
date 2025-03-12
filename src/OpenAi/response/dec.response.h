@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 
-cJSON * OpenAiInterface_get_response(OpenAiInterface *self, long index);
+cJSON * OpenAiInterface_get_response_cJSON(OpenAiInterface *self, long index);
 
 
 char * OpenAiInterface_get_response_content(OpenAiInterface *self, long index);
