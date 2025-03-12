@@ -6,15 +6,19 @@
 //silver_chain_scope_end
 
 
-typedef struct OpenAiResponse OpenAiResponse;
 
-typedef struct OpenAiChoices OpenAiChoices;
 
-typedef struct OpenAiMessage OpenAiMessage;
+struct OpenAiInterface{
+    int max_retrys;
+    #ifdef OPEN_AI_ALLOW_DTW
 
-typedef struct OpenAiObjectTool_Functions OpenAiObjectTool_Functions;
-
-typedef struct OpenAiCallFunction OpenAiCallFunction;
-
+    char *cache_dir;
+    bool cache_enabled;
+    bool preserve_meta_info;
+    #endif 
+    BearHttpsRequest *request;
+    cJSON *messages;
+    cJSON *body_object;
+    cJSON *response_array;
+};
 typedef struct OpenAiInterface OpenAiInterface;
-

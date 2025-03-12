@@ -8,49 +8,44 @@
 
 
 
-OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
+void OpenAiInterface_execute_agent(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
       if(cached_json){
-          return private_newOpenAiCachedResponse(cached_json);
+            cJSON_AddItemToArray(self->response_array, cached_json);
+            return;
       }
 
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
 
-    cJSON *body = BearHttpsResponse_read_body_json(response);
+    const char * body = BearHttpsResponse_read_body_str(response);
 
     if(BearHttpsResponse_error(response)){
-        char *error = BearHttpsResponse_get_error_msg(response);
-        return private_newOpenAiResponse(response, error);
+        char *error_msg = BearHttpsResponse_get_error_msg(response);
+        cJSON *error_json = cJSON_CreateObject();
+        cJSON *messsage =  cJSON_CreateString(error_msg);
+        cJSON_AddItemToObject(error_json, "message", messsage);
+        cJSON_AddItemToArray(self->response_array, error_json);
+        return; 
     }
-
-    cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
-    if(possible_cjson_error != NULL){
-        cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
-        if(error == NULL){
-            return private_newOpenAiResponse(response, "error message not found");
-        }
-
-        return private_newOpenAiResponse(response, error->valuestring);
-    }
-
-    #ifdef OPEN_AI_ALLOW_DTW
-        privateOpenAiInterface_save_answer_cache(self, body);
-    #endif
-
-    return  private_newOpenAiResponse(response, NULL);
-}
-
-void OpenAiInterface_save_history(OpenAiInterface *self, OpenAiResponse *response, long index){
-    
-    OpenAiMessage *message = OpenAiResponse_get_message(response, index);
-    
-    if(!message){
+    cJSON *json = cJSON_Parse(body);
+    if(!json){
+        cJSON *error_json = cJSON_CreateObject();
+        cJSON *messsage =  cJSON_CreateString("Error parsing json");
+        cJSON_AddItemToObject(error_json, "message", messsage);
+        cJSON_AddItemToArray(self->response_array, error_json);
         return;
     }
-    cJSON *copy = cJSON_Duplicate(message->message, true);
-    OpenAiInterface_add_raw_prompt(self, copy);
+
+    cJSON_AddItemToArray(self->response_array, json);
+    #ifdef OPEN_AI_ALLOW_DTW
+        privateOpenAiInterface_save_answer_cache(self, json);    
+    #endif
+}
+
+void OpenAiInterface_save_history(OpenAiInterface *self, long index){
+    
 }
 
 
