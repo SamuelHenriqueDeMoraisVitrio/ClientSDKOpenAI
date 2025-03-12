@@ -8,38 +8,29 @@
 
 
 
-OpenAiResponse *OpenAiInterface_make_question(OpenAiInterface *self){
+void OpenAiInterface_execute_agent(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
-      if(cached_json){
-          return private_newOpenAiCachedResponse(cached_json);
-      }
-
+      cJSON_AddItemToArray(self->messages,self->response_array);
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
 
-    cJSON *body = BearHttpsResponse_read_body_json(response);
+    char * body = BearHttpsResponse_read_body_str(response);
 
     if(BearHttpsResponse_error(response)){
         char *error = BearHttpsResponse_get_error_msg(response);
-        return private_newOpenAiResponse(response, error);
+        cJSON *error_json = cJSON_CreateObject();
+        cJSON *messsage = 
     }
 
-    cJSON *possible_cjson_error = cJSON_GetObjectItemCaseSensitive(body, "error");
-    if(possible_cjson_error != NULL){
-        cJSON *error = cJSON_GetObjectItemCaseSensitive(possible_cjson_error, "message");
-        if(error == NULL){
-            return private_newOpenAiResponse(response, "error message not found");
-        }
-
-        return private_newOpenAiResponse(response, error->valuestring);
-    }
+    cJSON *json = cJSON_Parse(body);
+    
 
     #ifdef OPEN_AI_ALLOW_DTW
         privateOpenAiInterface_save_answer_cache(self, body);
+        
     #endif
 
-    return  private_newOpenAiResponse(response, NULL);
 }
 
 void OpenAiInterface_save_history(OpenAiInterface *self, OpenAiResponse *response, long index){

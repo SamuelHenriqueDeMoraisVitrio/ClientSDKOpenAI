@@ -2,7 +2,7 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../../imports/imports.types.h"
+#include "../imports/imports.macros.h"
 //silver_chain_scope_end
 
 
@@ -19,5 +19,6 @@ struct OpenAiInterface{
     BearHttpsRequest *request;
     cJSON *messages;
     cJSON *body_object;
-
+    cJSON *response_array;
 };
+typedef struct OpenAiInterface OpenAiInterface;
