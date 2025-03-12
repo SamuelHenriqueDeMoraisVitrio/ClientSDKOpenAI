@@ -42,7 +42,6 @@ void OpenAiInterface_execute_agent(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
         privateOpenAiInterface_save_answer_cache(self, json);    
     #endif
-
 }
 
 void OpenAiInterface_save_history(OpenAiInterface *self, long index){

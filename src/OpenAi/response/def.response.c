@@ -6,6 +6,8 @@
 //silver_chain_scope_end
 
 cJSON * OpenAiInterface_get_response(OpenAiInterface *self, long index){
+  
+    
     int size = cJSON_GetArraySize(self->response_array);
     //if index its -1 than its last
     if(index < 0){

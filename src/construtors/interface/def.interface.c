@@ -19,7 +19,7 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
     OpenAiInterface_set_model(self, model);
 
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
-
+    self->response_array = cJSON_CreateArray();
     return self;
 }
 
@@ -29,7 +29,7 @@ void OpenAiInterface_free(OpenAiInterface *self){
         free(self->cache_dir);
     }
     #endif
-
+    cJSON_Delete(self->response_array);
     BearHttpsRequest_free(self->request);
     BearsslHttps_free(self);
 }
