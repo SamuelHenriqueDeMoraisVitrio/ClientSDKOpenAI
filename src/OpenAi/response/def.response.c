@@ -5,7 +5,7 @@
 #include "../../imports/imports.dec.h"
 //silver_chain_scope_end
 
-cJSON * OpenAiInterface_get_response_cJSON(OpenAiInterface *self, long index){
+cJSON * OpenAiInterface_get_response_cJSON_raw(OpenAiInterface *self, long index){
   
     
     int size = cJSON_GetArraySize(self->response_array);
