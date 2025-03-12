@@ -29,7 +29,6 @@ void OpenAiInterface_execute_agent(OpenAiInterface *self){
         cJSON_AddItemToArray(self->response_array, error_json);
         return; 
     }
-
     cJSON *json = cJSON_Parse(body);
     if(!json){
         cJSON *error_json = cJSON_CreateObject();
