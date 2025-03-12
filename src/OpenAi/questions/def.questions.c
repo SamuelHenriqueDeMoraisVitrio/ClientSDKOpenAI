@@ -8,7 +8,7 @@
 
 
 
-void OpenAiInterface_execute_agent(OpenAiInterface *self){
+void OpenAiInterface_make_question(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
       if(cached_json){
