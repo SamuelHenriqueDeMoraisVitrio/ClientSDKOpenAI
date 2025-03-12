@@ -7,12 +7,7 @@
 
 
 
-void OpenAiInterface_execute_agent(OpenAiInterface *self);
 
-
-void OpenAiInterface_save_history(OpenAiInterface *self, long index);
-
-
-
-
-
+char * OpenAiInterface_get_response_content(OpenAiInterface *self, long index) {
+    
+}
