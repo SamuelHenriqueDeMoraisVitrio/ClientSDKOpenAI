@@ -11,7 +11,7 @@
 void OpenAiInterface_execute_agent(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
-      if(cache_json){
+      if(cached_json){
             cJSON_AddItemToArray(self->response_array, cached_json);
             return;
       }
@@ -19,7 +19,7 @@ void OpenAiInterface_execute_agent(OpenAiInterface *self){
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
 
-    char * body = BearHttpsResponse_read_body_str(response);
+    const char * body = BearHttpsResponse_read_body_str(response);
 
     if(BearHttpsResponse_error(response)){
         char *error_msg = BearHttpsResponse_get_error_msg(response);
@@ -27,7 +27,7 @@ void OpenAiInterface_execute_agent(OpenAiInterface *self){
         cJSON *messsage =  cJSON_CreateString(error_msg);
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
-        return 
+        return; 
     }
 
     cJSON *json = cJSON_Parse(body);
@@ -41,7 +41,7 @@ void OpenAiInterface_execute_agent(OpenAiInterface *self){
 
     cJSON_AddItemToArray(self->response_array, json);
     #ifdef OPEN_AI_ALLOW_DTW
-        privateOpenAiInterface_save_answer_cache(self, body);    
+        privateOpenAiInterface_save_answer_cache(self, json);    
     #endif
 
 }

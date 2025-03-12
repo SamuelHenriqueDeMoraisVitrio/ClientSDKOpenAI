@@ -8,6 +8,4 @@
 
 
 
-char * OpenAiInterface_get_response_content(OpenAiInterface *self, long index) {
-    
-}
+char * OpenAiInterface_get_response_content(OpenAiInterface *self, long index);
