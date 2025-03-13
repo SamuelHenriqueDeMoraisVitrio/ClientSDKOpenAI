@@ -33,6 +33,7 @@ OpenAiInterfaceNamespace newOpenAiInterfaceNamespace(){
     self.set_model = OpenAiInterface_set_model;
     self.set_source_model = OpenAiInterface_set_source_model;
 
+    self.add_response_to_history = OpenAiInterface_add_response_to_history;
     self.make_question = OpenAiInterface_make_question;
     self.error = OpenAiResponse_error;
     self.get_error_message = OpenAiResponse_get_error_message;

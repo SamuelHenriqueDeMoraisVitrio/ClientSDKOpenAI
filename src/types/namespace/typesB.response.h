@@ -11,5 +11,7 @@ typedef struct OpenAiResponseNamespace{
     cJSON * (*get_message)(OpenAiResponse *response,long choice);
     cJSON  *(*get_content)(OpenAiResponse *response, long choice);
     const char * (*get_content_str)(OpenAiResponse *response,long choice);
+    bool (*error)(OpenAiResponse *response);
+    char *(*get_error_message)(OpenAiResponse *response);
 
 }OpenAiResponseNamespace;

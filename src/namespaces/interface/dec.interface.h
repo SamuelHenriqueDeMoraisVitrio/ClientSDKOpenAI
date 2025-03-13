@@ -5,4 +5,4 @@
 #include "../../imports/imports.typesC.h"
 //silver_chain_scope_end
 
-OpenAiInterfaceNamespace newOpenAiResponseNamespace();
+OpenAiInterfaceNamespace newOpenAiInterfaceNamespace();

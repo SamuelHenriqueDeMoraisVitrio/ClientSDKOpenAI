@@ -43,6 +43,7 @@ typedef struct OpenAiInterfaceNamespace {
     OpenAiResponse *  (*make_question)(OpenAiInterface *self);
     bool (*error)(OpenAiResponse *response);
     char *(*get_error_message)(OpenAiResponse *response);
+    void  (*add_response_to_history)(OpenAiInterface *self, OpenAiResponse *response,int choice);
 
    
     void (*free)(OpenAiInterface *self);
