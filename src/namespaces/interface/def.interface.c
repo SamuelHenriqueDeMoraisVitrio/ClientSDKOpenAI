@@ -27,6 +27,12 @@ OpenAiInterfaceNamespace newOpenAiInterfaceNamespace(){
     self.add_temp_assistent_prompt = OpenAiInterface_add_temp_assistent_prompt;
     self.add_temp_developer_prompt = OpenAiInterface_add_temp_developer_prompt;
 
+    self.set_know_ips = OpenAiInterface_set_know_ips;
+    self.set_max_tokens = OpenAiInterface_set_max_tokens;
+    self.set_temperature = OpenAiInterface_set_temperature;
+    self.set_model = OpenAiInterface_set_model;
+    self.set_source_model = OpenAiInterface_set_source_model;
+
     self.make_question = OpenAiInterface_make_question;
     self.error = OpenAiResponse_error;
     self.get_error_message = OpenAiResponse_get_error_message;
@@ -34,3 +40,4 @@ OpenAiInterfaceNamespace newOpenAiInterfaceNamespace(){
     self.free = OpenAiInterface_free;
 
     return self;
+}

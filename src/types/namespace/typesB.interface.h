@@ -32,6 +32,12 @@ typedef struct OpenAiInterfaceNamespace {
     void (*add_temp_assistent_prompt)(OpenAiInterface *self, const char *prompt);
     void (*add_temp_developer_prompt)(OpenAiInterface *self, const char *prompt);
 
+    ///configs
+    void (*set_know_ips)(OpenAiInterface *self, const char *url);
+    void (*set_max_tokens)(OpenAiInterface *self, float max_tokens);
+    void (*set_temperature)(OpenAiInterface *self, float temperature);
+    void (*set_model)(OpenAiInterface *self, const char *model);
+    void (*set_source_model)(OpenAiInterface *self, const char *source_model);
 
     //extras
     OpenAiResponse *  (*make_question)(OpenAiInterface *self);
@@ -41,4 +47,4 @@ typedef struct OpenAiInterfaceNamespace {
    
     void (*free)(OpenAiInterface *self);
 
-}OpenAiInterfaceNamespace;
+} OpenAiInterfaceNamespace;
