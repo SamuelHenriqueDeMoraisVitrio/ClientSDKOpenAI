@@ -8,6 +8,6 @@
 
 void OpenAiInterface_add_tools_raw(OpenAiInterface *self, cJSON *object);
 
-void OpenAiInterface_add_function_by_tools(const char *name_function, const char *description, bool strict, cJSON *parameters);
+void OpenAiInterface_add_default_function_by_tools(const char *name_function, const char *description, bool strict, cJSON *parameters);
 
 
