@@ -12,6 +12,8 @@ int OpenAiInterface_add_callback_function_by_tools(
   OpenAiCallback *callback
 ){
 
+  callback->index = self->size_callbakcs;
+
   cJSON *tool_object = private_OpenAiInterface_create_tool_object(
     callback,
     "function",
@@ -59,6 +61,32 @@ int OpenAiInterface_add_parameters_in_callback(
 
   return 1;
 }
+
+char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *name_function, const char *args){
+  
+  long index_lambda = private_OpenAiExtra_extract_index(name_function);
+
+  if(index_lambda >= self->size_callbakcs){
+    return NULL;
+  }
+
+  OpenAiCallback *lambda = self->callbacks[index_lambda];
+
+  if(!lambda){
+    return NULL;
+  }
+
+  cJSON *arguments = cJSON_Parse(args);
+  char *response = lambda->Lambda(arguments);
+  cJSON_Delete(arguments);
+  return response;
+}
+
+/*
+char *OpenAiInterface_run_callback_by_name(OpenAiInterface *self){
+  
+}
+*/
 
 
 

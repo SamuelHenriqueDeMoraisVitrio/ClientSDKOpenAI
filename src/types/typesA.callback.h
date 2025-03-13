@@ -19,6 +19,8 @@ typedef struct OpenAiCallback{
   long size_parameters;
   OpenAiArgument **parameters;
   const char *name_function;
+  char *index_name;
+  long index;
 }OpenAiCallback;
 
 

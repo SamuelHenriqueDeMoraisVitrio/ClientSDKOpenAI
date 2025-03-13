@@ -25,7 +25,8 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
     self->response_array = cJSON_CreateArray();
 
     self->size_callbakcs = 0;
-    self->callbacks = BearsslHttps_allocate(1);
+    self->callbacks = BearsslHttps_allocate(sizeof(OpenAiCallback *));
+    *self->callbacks = (OpenAiCallback*){0};
     return self;
 }
 

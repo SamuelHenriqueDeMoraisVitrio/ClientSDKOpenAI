@@ -24,6 +24,7 @@ OpenAiCallback *new_OpenAiCallback(
 
   self->Lambda = Lambda;
   self->name_function = name_func;
+  self->index_name = NULL;
   self->description = description;
 
   self->size_parameters = 0;
@@ -42,6 +43,10 @@ OpenAiCallback *new_OpenAiCallback(
 void OpenAiCallback_free(OpenAiCallback *self){
   if(!self){
     return;
+  }
+
+  if(self->index_name){
+    BearsslHttps_free(self->index_name);
   }
   
   if(self->parameters){

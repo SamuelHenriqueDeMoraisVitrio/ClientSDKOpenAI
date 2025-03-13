@@ -19,4 +19,6 @@ int OpenAiInterface_add_parameters_in_callback(
   bool required
 );
 
+char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *name_function, const char *args);
+
 

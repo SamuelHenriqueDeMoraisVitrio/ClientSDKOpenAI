@@ -5,8 +5,9 @@
 #include "../imports/imports.typesB.h"
 //silver_chain_scope_end
 
-OpenAiResponse * OpenAiInterface_get_response_by_index(OpenAiInterface *self, long index);
 
-cJSON *OpenAiResponse_get_choice(OpenAiResponse *response, long choice);
+
+long private_OpenAiExtra_extract_index(const char *input);
+
 
 

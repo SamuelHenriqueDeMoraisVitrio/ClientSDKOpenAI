@@ -9,6 +9,10 @@
 
 OpenAiResponse *  OpenAiInterface_make_question(OpenAiInterface *self);
 
+OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterface *self);
+
+void  OpenAiInterface_add_response_to_history(OpenAiInterface *self, OpenAiResponse *response,int choice);
+
 
 
 
