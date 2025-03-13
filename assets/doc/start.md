@@ -9,34 +9,45 @@ curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.00
 curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c -o SDK_OpenAIOne.c
 ```
 
-than,create a main.c file with the following code:
+### Minimal Chat Bot exampe
 ```c
-
 #include "BearHttpsClientOne.c"
 #include "SDK_OpenAIOne.c"
-
+#define GREEN  "\033[0;32m"
+#define BLUE  "\033[0;34m"
+#define RED "\033[0;31m"
+#define RESET  "\033[0m"
+#define FIRST_CHOICE  0
+#define URL  "https://api.openai.com/v1/chat/completions"
+#define KEY  "<your_key>"
+#define MODEL  "gpt-3.5-turbo"
 int main(int argc, char const *argv[]){
 
-    const char *URL = "https://api.openai.com/v1/chat/completions";
-    const char *KEY = "your-key";
-    const char *MODEL = "gpt-3.5-turbo";
-    OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
 
-    OpenAiInterface_add_user_prompt(openAi, "what is the meaning of life?");
-    OpenAiAnswer *answer = OpenAiInterface_make_question(openAi);
+  OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
+  while (true){
+    char *input = NULL;
+    size_t len = 0;
+    printf(GREEN"Enter your message:"RESET);
+    getline(&input, &len, stdin);
+    
+    OpenAiInterface_add_user_prompt(openAi, input);
 
-    if(OpenAiAnswer_error(answer)){
-        printf("error: %s\n", OpenAiAnswer_get_error_msg(answer));
+    OpenAiResponse *response = OpenAiInterface_make_question(openAi);
+    if(OpenAiResponse_error(response)){
+       printf(RED"Error: %s\n"RESET, OpenAiResponse_get_error_message(response));
+        free(input);
         OpenAiInterface_free(openAi);
-        OpenAiAnswer_free(answer);
-        return 1;
+        exit(1);
     }
-    const char *first_answer = OpenAiAnswer_get_answer(answer, 0);
-    printf("answer: %s\n", first_answer);
+    const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
+    printf(BLUE"Answer: %s\n"RESET, first_answer);
+    OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
 
-    OpenAiInterface_free(openAi);
-    OpenAiAnswer_free(answer);
 
+    free(input);
+ 
+  }
 }
 ```
 Note that , these its a simple example, read the [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient) for making
