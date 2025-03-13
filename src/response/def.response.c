@@ -68,6 +68,15 @@ void OpenAiInterface_save_history(OpenAiResponse *response, int choice){
     if(message == NULL){
         return;
     }
+    cJSON *interface = cJSON_GetObjectItem(message, "interface");
+    if(interface == NULL){
+        return;
+    }
+
+    long interface_pointer = cJSON_GetNumberValue(interface);
+    OpenAiInterface *interface_obj = (OpenAiInterface *)interface_pointer;
+    cJSON_AddItemReferenceToArray(interface_obj->messages, message);
+    interface_obj->last_valid_point = cJSON_GetArraySize(interface_obj->messages);
     
 }
 
