@@ -18,6 +18,9 @@ struct OpenAiInterface{
     BearHttpsRequest *request;
     cJSON *messages;
 
+    int *temp_messages;
+    int total_temp_menssages;
+    int total_temp_messages_alocated;
 
     cJSON *body_object;
     cJSON *response_array;
