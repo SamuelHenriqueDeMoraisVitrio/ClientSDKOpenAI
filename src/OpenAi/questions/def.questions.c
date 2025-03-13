@@ -20,6 +20,9 @@
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
       if(cached_json){
+        
+
+            cJSON_AddNumberToObject(cached_json, "interface", (long)self);
             cJSON_AddItemToArray(self->response_array, cached_json);
             return cached_json;
       }
@@ -38,6 +41,8 @@
         return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
+    cJSON_AddNumberToObject(json, "interface", (long)self);
+
     if(!json){
         cJSON *error_json = cJSON_CreateObject();
         cJSON *messsage =  cJSON_CreateString("Error parsing json");
