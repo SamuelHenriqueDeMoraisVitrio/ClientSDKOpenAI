@@ -18,5 +18,7 @@ void OpenAiInterface_set_temperature(OpenAiInterface *bearOpenAi, float temperat
 void OpenAiInterface_set_model(OpenAiInterface *bearOpenAi, const char *model);
 
 
+void OpenAiInterface_set_source_model(OpenAiInterface *bearOpenAi, const char *source_model);
+
 
 

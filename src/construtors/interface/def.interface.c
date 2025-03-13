@@ -18,6 +18,9 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
     self->messages = cJSON_CreateArray();
     OpenAiInterface_set_model(self, model);
 
+    self->temp_messages = (int*)malloc(1);
+    self->total_temp_messages_alocated = 1;
+
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
     self->response_array = cJSON_CreateArray();
     return self;
@@ -29,6 +32,9 @@ void OpenAiInterface_free(OpenAiInterface *self){
         free(self->cache_dir);
     }
     #endif
+    if(self->temp_messages){
+        free(self->temp_messages);
+    }
     cJSON_Delete(self->response_array);
     BearHttpsRequest_free(self->request);
     BearsslHttps_free(self);

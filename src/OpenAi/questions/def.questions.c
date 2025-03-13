@@ -20,20 +20,14 @@
 
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
-    int i = 0;
-    while(true){
-        cJSON *message = cJSON_GetArrayItem(self->messages,i);
-        if(!message){
-            break;
-        }
-        cJSON *permanent_var = cJSON_GetObjectItemCaseSensitive(message, "permanent");
-        if(cJSON_IsFalse(permanent_var)){
-            cJSON_DeleteItemFromArray(self->messages,i);
-            continue;
-       }
-        i++;
+
+    for(int i  = self->total_temp_menssages-1; i >= 0;i--){
+        int index_to_destroy = self->temp_messages[i];
+        cJSON_DeleteItemFromArray(self->messages, index_to_destroy);
     }
 
+
+    self->total_temp_menssages = 0;
 
     const char * body = BearHttpsResponse_read_body_str(response);
 
@@ -43,9 +37,12 @@
         cJSON *messsage =  cJSON_CreateString(error_msg);
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
+        BearHttpsResponse_free(response);
         return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
+    BearHttpsResponse_free(response);
+
 
     if(!json){
         cJSON *error_json = cJSON_CreateObject();

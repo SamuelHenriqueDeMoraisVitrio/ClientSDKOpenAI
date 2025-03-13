@@ -31,3 +31,9 @@ void OpenAiInterface_set_model(OpenAiInterface *self, const char *model){
     cJSON_AddStringToObject(self->body_object, "model", model);
 }
 
+
+
+void OpenAiInterface_set_source_model(OpenAiInterface *bearOpenAi, const char *source_model){
+    cJSON_DeleteItemFromObjectCaseSensitive(bearOpenAi->body_object, "source_model");
+    cJSON_AddStringToObject(bearOpenAi->body_object, "source_model", source_model);
+}
