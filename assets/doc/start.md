@@ -1,12 +1,12 @@
 # Install
 
 For Instalation, just download the files [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) and
-[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) at the same dir.
+[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAIOne.c) at the same dir.
 
 if you are using linux, you can run the following commands:
 ```bash
 curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c -o BearHttpsClientOne.c &&
-curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c -o SDK_OpenAIOne.c
+curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAIOne.c -o SDK_OpenAIOne.c
 ```
 
 ### Minimal Chat Bot exampe
@@ -59,9 +59,9 @@ more complex builds.
 # Releases
 | Item           | Description |
 |----------------|-------------|
-| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAIOne.c) | Single File Version |
-| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.c)       | Definitions         |
-| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.1/SDK_OpenAI.h)       | Declaration         |
+| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAIOne.c) | Single File Version |
+| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAI.c)       | Definitions         |
+| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAI.h)       | Declaration         |
 
 
 # Suported BearHttpsClient Versions
