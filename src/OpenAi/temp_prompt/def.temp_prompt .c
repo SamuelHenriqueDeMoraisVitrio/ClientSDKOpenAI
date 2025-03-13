@@ -21,3 +21,6 @@ void OpenAiInterface_add_temp_assistent_prompt(OpenAiInterface *self, const char
 void OpenAiInterface_add_temp_developer_prompt(OpenAiInterface *self, const char *prompt){
     OpenAiInterface_add_default_prompt(self, "developer", prompt, true);
 }
+
+
+

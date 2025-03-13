@@ -23,6 +23,9 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
 
     cJSON_AddItemToObject(self->body_object, "messages", self->messages);
     self->response_array = cJSON_CreateArray();
+
+    self->size_callbakcs = 0;
+    self->callbacks = BearsslHttps_allocate(1);
     return self;
 }
 

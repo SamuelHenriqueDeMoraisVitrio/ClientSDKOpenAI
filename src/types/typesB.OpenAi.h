@@ -2,7 +2,7 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../imports/imports.types.h"
+#include "../imports/imports.typesA.h"
 //silver_chain_scope_end
 
 
@@ -24,5 +24,12 @@ struct OpenAiInterface{
 
     cJSON *body_object;
     cJSON *response_array;
+    
+    long size_callbakcs;
+    OpenAiCallback **callbacks;
 };
 typedef struct OpenAiInterface OpenAiInterface;
+
+
+
+

@@ -17,30 +17,8 @@ void OpenAiInterface_add_tools_raw(OpenAiInterface *self, cJSON *object){
   cJSON_AddItemToArray(OpenAi_tools, object);
 }
 
-void OpenAiInterface_add_default_function_by_tools(const char *name_function, const char *description, bool strict, cJSON *parameters){
 
-  cJSON *OpenAi_tools_object = cJSON_CreateObject();
-  cJSON_AddStringToObject(OpenAi_tools_object, "type", "function");
 
-  cJSON *function_object = cJSON_CreateObject();
 
-  cJSON_AddStringToObject(function_object, "name", name_function);
-
-  cJSON_AddStringToObject(function_object, "description", description);
-
-  cJSON_AddItemToObject(function_object, "parameters", parameters);
-
-  cJSON_AddBoolToObject(function_object, "strict", strict);
-
-  cJSON_AddItemToObject(OpenAi_tools_object, "function", function_object);
-}
-
-void OpenAiInterface_add_callback_function_by_tools(
-  const char *(*callback)(void *args),
-  const char *name_function,
-  void *parameters,
-  const char *description){
-  
-}
 
 

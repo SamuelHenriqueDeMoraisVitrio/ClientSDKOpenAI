@@ -5,4 +5,16 @@
 #include "../../imports/imports.typesB.h"
 //silver_chain_scope_end
 
-void privateOpenAiInterface_set_last_message_as_temp(OpenAiInterface *self);
+
+
+
+OpenAiCallback *new_OpenAiCallback(
+  char *(*Lambda)(cJSON *args),
+  const char *name_func,
+  const char *description
+);
+
+void OpenAiCallback_free(OpenAiCallback *self);
+
+
+
