@@ -13,6 +13,7 @@ curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releas
 ```c
 #include "BearHttpsClientOne.c"
 #include "SDK_OpenAIOne.c"
+
 #define GREEN  "\033[0;32m"
 #define BLUE  "\033[0;34m"
 #define RED "\033[0;31m"
