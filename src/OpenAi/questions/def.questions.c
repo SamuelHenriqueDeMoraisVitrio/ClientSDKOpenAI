@@ -37,9 +37,12 @@
         cJSON *messsage =  cJSON_CreateString(error_msg);
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
+        BearHttpsResponse_free(response);
         return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
+    BearHttpsResponse_free(response);
+
 
     if(!json){
         cJSON *error_json = cJSON_CreateObject();
