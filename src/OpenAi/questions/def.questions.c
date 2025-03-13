@@ -19,10 +19,7 @@
 
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
-      if(cached_json){
-        
-
-            cJSON_AddNumberToObject(cached_json, "interface", (long)self);
+      if(cached_json){        
             cJSON_AddItemToArray(self->response_array, cached_json);
             return cached_json;
       }
@@ -41,7 +38,6 @@
         return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
-    cJSON_AddNumberToObject(json, "interface", (long)self);
 
     if(!json){
         cJSON *error_json = cJSON_CreateObject();
@@ -60,4 +56,27 @@
 
 
 
+
+void OpenAiInterface_save_last_response_to_history(OpenAiInterface *self, int choice){
+
+    int response_size = cJSON_GetArraySize(self->response_array);
+    if(response_size == 0){
+        return;
+    }
+    cJSON *response = cJSON_GetArrayItem(self->response_array, response_size - 1);
+    cJSON *message = OpenAiInterface_get_message(response, choice);
+    if(message == NULL){
+        return;
+    }
+    
+    int total_messages = cJSON_GetArraySize(self->messages);
+    if(total_messages){
+        cJSON *last_message = cJSON_GetArrayItem(self->messages, total_messages - 1);
+        if(cJSON_Compare(last_message, message, 1)){
+            return;
+        }
+    }
+    cJSON_AddItemReferenceToArray(self->messages, message);
+    self->last_valid_point = cJSON_GetArraySize(self->messages);
+}
 

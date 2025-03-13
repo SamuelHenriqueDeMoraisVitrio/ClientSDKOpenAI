@@ -63,24 +63,3 @@ const char * OpenAiInterface_get_content_str(OpenAiResponse *response,long choic
     return content->valuestring;
 }
 
-void OpenAiInterface_save_history(OpenAiResponse *response, int choice){
-    if(response == NULL){
-        return;
-    }
-    cJSON *interface = cJSON_GetObjectItem(response, "interface");
-    if(interface == NULL){
-        return;
-    }
-    
-    cJSON *message  =OpenAiInterface_get_message(response, choice);
-    if(message == NULL){
-        return;
-    }
-
-    long interface_pointer = cJSON_GetNumberValue(interface);
-    OpenAiInterface *interface_obj = (OpenAiInterface *)interface_pointer;
-    cJSON_AddItemReferenceToArray(interface_obj->messages, message);
-    interface_obj->last_valid_point = cJSON_GetArraySize(interface_obj->messages);
-    
-}
-
