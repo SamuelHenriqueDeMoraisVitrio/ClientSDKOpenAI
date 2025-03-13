@@ -16,5 +16,4 @@ This project is a lightweight and efficient SDK for interacting with OpenAI's AP
 
 </details>
 
-{darwin.dtw.load_file(path_doc .. "extra.md")}
 
