@@ -21,7 +21,7 @@ OpenAiResponse * OpenAiInterface_get_response_by_index(OpenAiInterface *self, lo
 
 }
 
-cJSON *OpenAiInterface_get_choice(OpenAiResponse *response, long choice){
+cJSON *OpenAiResponse_get_choice(OpenAiResponse *response, long choice){
     if(response == NULL){
         return NULL;
     }
@@ -33,8 +33,8 @@ cJSON *OpenAiInterface_get_choice(OpenAiResponse *response, long choice){
 
 }
 
-cJSON * OpenAiInterface_get_message(OpenAiResponse *response,long choice){
-    cJSON *choice_item = OpenAiInterface_get_choice(response, choice);
+cJSON * OpenAiResponse_get_message(OpenAiResponse *response,long choice){
+    cJSON *choice_item = OpenAiResponse_get_choice(response, choice);
     if(choice_item == NULL){
         return NULL;
     }
@@ -46,8 +46,8 @@ cJSON * OpenAiInterface_get_message(OpenAiResponse *response,long choice){
 }
 
 
-cJSON *OpenAiInterface_get_content(OpenAiResponse *response, long choice){
-    cJSON *message  =OpenAiInterface_get_message(response, choice);
+cJSON *OpenAiResponse_get_content(OpenAiResponse *response, long choice){
+    cJSON *message  =OpenAiResponse_get_message(response, choice);
     if(message == NULL){
         return NULL;
     }
@@ -55,8 +55,8 @@ cJSON *OpenAiInterface_get_content(OpenAiResponse *response, long choice){
 }
 
 
-const char * OpenAiInterface_get_content_str(OpenAiResponse *response,long choice){
-    cJSON *content = OpenAiInterface_get_content(response,choice);
+const char * OpenAiResponse_get_content_str(OpenAiResponse *response,long choice){
+    cJSON *content = OpenAiResponse_get_content(response,choice);
     if(content == NULL){
         return NULL;
     }

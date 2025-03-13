@@ -18,8 +18,7 @@ struct OpenAiInterface{
     BearHttpsRequest *request;
     cJSON *messages;
 
-    int last_question_point;
-    int last_valid_point;
+
     cJSON *body_object;
     cJSON *response_array;
 };

@@ -7,6 +7,6 @@
 
 
 
-bool OpenAiInterface_error(OpenAiResponse *response);
+bool OpenAiResponse_error(OpenAiResponse *response);
 
-char *OpenAiInterface_get_error_message(OpenAiResponse *response);
+char *OpenAiResponse_get_error_message(OpenAiResponse *response);

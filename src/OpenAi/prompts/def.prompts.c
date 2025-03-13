@@ -39,10 +39,10 @@ void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *pro
     OpenAiInterface_add_default_prompt(self, "developer", prompt, permanent);
 }
 
-void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call, const char *content){
+void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call, const char *content,bool permanent){
     cJSON *prompt_tool = cJSON_CreateObject();
     cJSON_AddStringToObject(prompt_tool, "role", "tool");
     cJSON_AddStringToObject(prompt_tool, "tool_call_id", id_call);
     cJSON_AddStringToObject(prompt_tool, "content", content);
-    OpenAiInterface_add_raw_prompt(self, prompt_tool);
+    OpenAiInterface_add_raw_prompt(self, prompt_tool, permanent);
 }

@@ -18,4 +18,4 @@ void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *pro
 
 void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt, bool permanent);
 
-void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call, const char *content);
+void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call, const char *content, bool permanent);

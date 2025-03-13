@@ -7,12 +7,12 @@
 
 OpenAiResponse * OpenAiInterface_get_response_by_index(OpenAiInterface *self, long index);
 
-cJSON *OpenAiInterface_get_choice(OpenAiResponse *response, long choice);
+cJSON *OpenAiResponse_get_choice(OpenAiResponse *response, long choice);
 
-cJSON * OpenAiInterface_get_message(OpenAiResponse *response,long choice);
-
-
-cJSON  *OpenAiInterface_get_content(OpenAiResponse *response, long choice);
+cJSON * OpenAiResponse_get_message(OpenAiResponse *response,long choice);
 
 
-const char * OpenAiInterface_get_content_str(OpenAiResponse *response,long choice);
+cJSON  *OpenAiResponse_get_content(OpenAiResponse *response, long choice);
+
+
+const char * OpenAiResponse_get_content_str(OpenAiResponse *response,long choice);

@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 
-bool OpenAiInterface_error(OpenAiResponse *response){
+bool OpenAiResponse_error(OpenAiResponse *response){
     if(response == NULL){
         return true;
     }
@@ -17,7 +17,7 @@ bool OpenAiInterface_error(OpenAiResponse *response){
     return true;
 }
 
-char *OpenAiInterface_get_error_message(OpenAiResponse *response){
+char *OpenAiResponse_get_error_message(OpenAiResponse *response){
     if(response == NULL){
         return NULL;
     }
