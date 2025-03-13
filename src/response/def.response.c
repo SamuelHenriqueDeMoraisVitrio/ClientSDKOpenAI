@@ -62,3 +62,12 @@ const char * OpenAiInterface_get_content_str(OpenAiResponse *response,long choic
     }
     return content->valuestring;
 }
+
+void OpenAiInterface_save_history(OpenAiResponse *response, int choice){
+    cJSON *message  =OpenAiInterface_get_message(response, choice);
+    if(message == NULL){
+        return;
+    }
+    
+}
+

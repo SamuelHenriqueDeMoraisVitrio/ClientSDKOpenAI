@@ -53,10 +53,6 @@
     return json;
 }
 
-void OpenAiInterface_save_history(OpenAiInterface *self, long index){
-    
-}
-
 
 
 
