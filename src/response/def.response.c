@@ -64,12 +64,16 @@ const char * OpenAiInterface_get_content_str(OpenAiResponse *response,long choic
 }
 
 void OpenAiInterface_save_history(OpenAiResponse *response, int choice){
-    cJSON *message  =OpenAiInterface_get_message(response, choice);
-    if(message == NULL){
+    if(response == NULL){
         return;
     }
-    cJSON *interface = cJSON_GetObjectItem(message, "interface");
+    cJSON *interface = cJSON_GetObjectItem(response, "interface");
     if(interface == NULL){
+        return;
+    }
+    
+    cJSON *message  =OpenAiInterface_get_message(response, choice);
+    if(message == NULL){
         return;
     }
 
