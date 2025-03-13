@@ -9,6 +9,14 @@
 
 
  OpenAiResponse * OpenAiInterface_make_question(OpenAiInterface *self){
+    
+    for(int i = self->last_valid_point;i < self->last_question_point;i++){
+       cJSON_DeleteItemFromArray(self->messages, i);
+    }
+
+    self->last_question_point = cJSON_GetArraySize(self->messages);
+
+
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
       if(cached_json){
