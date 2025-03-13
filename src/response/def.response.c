@@ -2,10 +2,10 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../../imports/imports.dec.h"
+#include "../imports/imports.dec.h"
 //silver_chain_scope_end
 
-cJSON * OpenAiInterface_get_response_cJSON_raw(OpenAiInterface *self, long index){
+OpenAiResponse * OpenAiInterface_get_response_by_index(OpenAiInterface *self, long index){
   
     
     int size = cJSON_GetArraySize(self->response_array);
@@ -21,8 +21,7 @@ cJSON * OpenAiInterface_get_response_cJSON_raw(OpenAiInterface *self, long index
 
 }
 
-cJSON *OpenAiInterface_get_choice(OpenAiInterface *self, long index, long choice){
-    cJSON *response = OpenAiInterface_get_response_cJSON_raw(self, index);
+cJSON *OpenAiResponse_get_choice(OpenAiResponse *response, long choice){
     if(response == NULL){
         return NULL;
     }
@@ -34,8 +33,8 @@ cJSON *OpenAiInterface_get_choice(OpenAiInterface *self, long index, long choice
 
 }
 
-cJSON * OpenAiInterface_get_message(OpenAiInterface *self ,long index,long choice){
-    cJSON *choice_item = OpenAiInterface_get_choice(self, index, choice);
+cJSON * OpenAiResponse_get_message(OpenAiResponse *response,long choice){
+    cJSON *choice_item = OpenAiResponse_get_choice(response, choice);
     if(choice_item == NULL){
         return NULL;
     }
@@ -45,8 +44,10 @@ cJSON * OpenAiInterface_get_message(OpenAiInterface *self ,long index,long choic
     }
     return message;
 }
-cJSON *OpenAiInterface_get_content(OpenAiInterface *self, long index, long choice){
-    cJSON *message  =OpenAiInterface_get_message(self, index, choice);
+
+
+cJSON *OpenAiResponse_get_content(OpenAiResponse *response, long choice){
+    cJSON *message  =OpenAiResponse_get_message(response, choice);
     if(message == NULL){
         return NULL;
     }
@@ -54,10 +55,11 @@ cJSON *OpenAiInterface_get_content(OpenAiInterface *self, long index, long choic
 }
 
 
-char * OpenAiInterface_get_response_content(OpenAiInterface *self, long index,long choice){
-    cJSON *content = OpenAiInterface_get_content(self, index, choice);
+const char * OpenAiResponse_get_content_str(OpenAiResponse *response,long choice){
+    cJSON *content = OpenAiResponse_get_content(response,choice);
     if(content == NULL){
         return NULL;
     }
     return content->valuestring;
 }
+

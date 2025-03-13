@@ -8,16 +8,32 @@
 
 
 
-void OpenAiInterface_make_question(OpenAiInterface *self){
+ OpenAiResponse * OpenAiInterface_make_question(OpenAiInterface *self){
+    
+
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
-      if(cached_json){
+      if(cached_json){        
             cJSON_AddItemToArray(self->response_array, cached_json);
-            return;
+            return cached_json;
       }
 
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
+    int i = 0;
+    while(true){
+        cJSON *message = cJSON_GetArrayItem(self->messages,i);
+        if(!message){
+            break;
+        }
+        cJSON *permanent_var = cJSON_GetObjectItemCaseSensitive(message, "permanent");
+        if(cJSON_IsFalse(permanent_var)){
+            cJSON_DeleteItemFromArray(self->messages,i);
+            continue;
+       }
+        i++;
+    }
+
 
     const char * body = BearHttpsResponse_read_body_str(response);
 
@@ -27,27 +43,30 @@ void OpenAiInterface_make_question(OpenAiInterface *self){
         cJSON *messsage =  cJSON_CreateString(error_msg);
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
-        return; 
+        return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
+
     if(!json){
         cJSON *error_json = cJSON_CreateObject();
         cJSON *messsage =  cJSON_CreateString("Error parsing json");
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
-        return;
+        return error_json;
     }
 
     cJSON_AddItemToArray(self->response_array, json);
     #ifdef OPEN_AI_ALLOW_DTW
         privateOpenAiInterface_save_answer_cache(self, json);    
     #endif
-}
-
-void OpenAiInterface_save_history(OpenAiInterface *self, long index){
-    
+    return json;
 }
 
 
 
+void  OpenAiInterface_add_response_to_history(OpenAiInterface *self, OpenAiResponse *response,int choice){   
+   cJSON *message = OpenAiResponse_get_message(response,choice);
+    cJSON *copy = cJSON_Duplicate(message,1);
+    cJSON_AddItemToArray(self->messages, copy);
+}
 

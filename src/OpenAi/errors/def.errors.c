@@ -6,8 +6,7 @@
 //silver_chain_scope_end
 
 
-bool OpenAiInterface_error(OpenAiInterface *self, long index){
-    cJSON *response = OpenAiInterface_get_response_cJSON_raw(self, index);
+bool OpenAiResponse_error(OpenAiResponse *response){
     if(response == NULL){
         return true;
     }
@@ -18,8 +17,7 @@ bool OpenAiInterface_error(OpenAiInterface *self, long index){
     return true;
 }
 
-char *OpenAiInterface_get_error_message(OpenAiInterface *self, long index){
-    cJSON *response = OpenAiInterface_get_response_cJSON_raw(self, index);
+char *OpenAiResponse_get_error_message(OpenAiResponse *response){
     if(response == NULL){
         return NULL;
     }
