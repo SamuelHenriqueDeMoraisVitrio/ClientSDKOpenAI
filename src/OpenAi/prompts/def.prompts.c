@@ -7,30 +7,36 @@
 
 
 
-void OpenAiInterface_add_raw_prompt(OpenAiInterface *self, cJSON *prompt){
+void OpenAiInterface_add_raw_prompt(OpenAiInterface *self, cJSON *prompt, bool permanent){
+    if(permanent){
+        cJSON_AddBoolToObject(prompt, "permanent", true);
+    }
     cJSON_AddItemToArray(self->messages, prompt);
 }
 
-void OpenAiInterface_add_default_prompt(OpenAiInterface *self,const char *role, const char *prompt){
+void OpenAiInterface_add_default_prompt(OpenAiInterface *self,const char *role, const char *prompt, bool permanent){
     cJSON *prompt_object = cJSON_CreateObject();
+    if(permanent){
+        cJSON_AddBoolToObject(prompt_object, "permanent", true);
+    }
     cJSON_AddStringToObject(prompt_object, "role", role);
     cJSON_AddStringToObject(prompt_object, "content", prompt);
     cJSON_AddItemToArray(self->messages, prompt_object);
 }
 
-void OpenAiInterface_add_system_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_default_prompt(self, "system", prompt);
+void OpenAiInterface_add_system_prompt(OpenAiInterface *self, const char *prompt, bool permanent){
+    OpenAiInterface_add_default_prompt(self, "system", prompt, permanent);
 }
 
-void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_default_prompt(self, "user", prompt);
+void OpenAiInterface_add_user_prompt(OpenAiInterface *self, const char *prompt, bool permanent){
+    OpenAiInterface_add_default_prompt(self, "user", prompt, permanent);
 }
 
-void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_default_prompt(self, "assistant", prompt);
+void OpenAiInterface_add_assistent_prompt(OpenAiInterface *self, const char *prompt,bool permanent){
+    OpenAiInterface_add_default_prompt(self, "assistant", prompt, permanent);
 }
-void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt){
-    OpenAiInterface_add_default_prompt(self, "developer", prompt);
+void OpenAiInterface_add_developer_prompt(OpenAiInterface *self, const char *prompt, bool permanent){
+    OpenAiInterface_add_default_prompt(self, "developer", prompt, permanent);
 }
 
 void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call, const char *content){
