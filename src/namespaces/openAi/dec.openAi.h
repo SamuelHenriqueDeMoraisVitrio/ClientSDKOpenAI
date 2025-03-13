@@ -5,13 +5,4 @@
 #include "../../imports/imports.typesC.h"
 //silver_chain_scope_end
 
-
-
-OpenAiResponse *  OpenAiInterface_make_question(OpenAiInterface *self);
-
-
-
-
-
-
-
+OpenAiNamespace newOpenAiNamespace();
