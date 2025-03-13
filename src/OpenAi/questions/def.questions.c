@@ -8,12 +8,12 @@
 
 
 
-void OpenAiInterface_make_question(OpenAiInterface *self){
+ OpenAiResponse * OpenAiInterface_make_question(OpenAiInterface *self){
     #ifdef OPEN_AI_ALLOW_DTW
       cJSON *cached_json = private_OpenAiInterface_get_cache_answer(self);
       if(cached_json){
             cJSON_AddItemToArray(self->response_array, cached_json);
-            return;
+            return cached_json;
       }
 
     #endif
@@ -27,7 +27,7 @@ void OpenAiInterface_make_question(OpenAiInterface *self){
         cJSON *messsage =  cJSON_CreateString(error_msg);
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
-        return; 
+        return error_json; 
     }
     cJSON *json = cJSON_Parse(body);
     if(!json){
@@ -35,13 +35,14 @@ void OpenAiInterface_make_question(OpenAiInterface *self){
         cJSON *messsage =  cJSON_CreateString("Error parsing json");
         cJSON_AddItemToObject(error_json, "message", messsage);
         cJSON_AddItemToArray(self->response_array, error_json);
-        return;
+        return error_json;
     }
 
     cJSON_AddItemToArray(self->response_array, json);
     #ifdef OPEN_AI_ALLOW_DTW
         privateOpenAiInterface_save_answer_cache(self, json);    
     #endif
+    return json;
 }
 
 void OpenAiInterface_save_history(OpenAiInterface *self, long index){
