@@ -8,17 +8,16 @@
 
 
 void OpenAiInterface_add_raw_prompt(OpenAiInterface *self, cJSON *prompt, bool permanent){
-    if(permanent){
-        cJSON_AddBoolToObject(prompt, "permanent", true);
-    }
+    
+    cJSON_AddBoolToObject(prompt, "permanent",permanent);
+
     cJSON_AddItemToArray(self->messages, prompt);
 }
 
 void OpenAiInterface_add_default_prompt(OpenAiInterface *self,const char *role, const char *prompt, bool permanent){
     cJSON *prompt_object = cJSON_CreateObject();
-    if(permanent){
-        cJSON_AddBoolToObject(prompt_object, "permanent", true);
-    }
+     cJSON_AddBoolToObject(prompt_object, "permanent",permanent);
+
     cJSON_AddStringToObject(prompt_object, "role", role);
     cJSON_AddStringToObject(prompt_object, "content", prompt);
     cJSON_AddItemToArray(self->messages, prompt_object);

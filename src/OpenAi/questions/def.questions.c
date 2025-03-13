@@ -20,6 +20,20 @@
 
     #endif
     BearHttpsResponse *response = BearHttpsRequest_fetch(self->request);
+    int i = 0;
+    while(true){
+        cJSON *message = cJSON_GetArrayItem(self->messages,i);
+        if(!message){
+            break;
+        }
+        cJSON *permanent_var = cJSON_GetObjectItemCaseSensitive(message, "permanent");
+        if(cJSON_IsFalse(permanent_var)){
+            cJSON_DeleteItemFromArray(self->messages,i);
+            continue;
+       }
+        i++;
+    }
+
 
     const char * body = BearHttpsResponse_read_body_str(response);
 
@@ -52,6 +66,7 @@
 
 void  OpenAiInterface_add_response_to_history(OpenAiInterface *self, OpenAiResponse *response,int choice){   
    cJSON *message = OpenAiResponse_get_message(response,choice);
-    cJSON_AddItemToArray(self->messages, message);
+    cJSON *copy = cJSON_Duplicate(message,1);
+    cJSON_AddItemToArray(self->messages, copy);
 }
 
