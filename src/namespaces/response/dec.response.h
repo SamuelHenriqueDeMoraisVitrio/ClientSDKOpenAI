@@ -5,14 +5,4 @@
 #include "../../imports/imports.typesC.h"
 //silver_chain_scope_end
 
-
-
-OpenAiResponse *  OpenAiInterface_make_question(OpenAiInterface *self);
-
-
-
-void  OpenAiInterface_add_response_to_history(OpenAiInterface *self, OpenAiResponse *response,int choice);
-
-
-
-
+OpenAiResponseNamespace newOpenAiResponseNamespace();
