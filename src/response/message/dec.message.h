@@ -7,7 +7,17 @@
 
 
 
-void OpenAiInterface_add_tools_raw(OpenAiInterface *self, cJSON *object);
+
+
+
+
+cJSON * OpenAiResponse_get_message(OpenAiResponse *response,long choice);
+
+
+cJSON  *OpenAiResponse_get_content(OpenAiResponse *response, long choice);
+
+
+const char * OpenAiResponse_get_content_str(OpenAiResponse *response,long choice);
 
 
 

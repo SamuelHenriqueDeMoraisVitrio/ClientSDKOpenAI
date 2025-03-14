@@ -2,8 +2,19 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../../imports/imports.typesD.h"
+#include "../../../imports/imports.typesD.h"
 //silver_chain_scope_end
 
 
-void privateOpenAiInterface_set_last_message_as_temp(OpenAiInterface *self);
+
+
+
+
+cJSON *private_OpenAiInterface_create_tool_object(
+  OpenAiCallback *self,
+  const char *type,
+  bool additionalProperties,
+  bool strict
+);
+
+

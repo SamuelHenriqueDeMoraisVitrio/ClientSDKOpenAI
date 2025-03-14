@@ -6,4 +6,15 @@
 //silver_chain_scope_end
 
 
-void privateOpenAiInterface_set_last_message_as_temp(OpenAiInterface *self);
+
+OpenAiArgument *private_new_OpenAiArgument(
+  const char *name_argument,
+  const char *description,
+  const char *type,
+  bool required
+);
+
+void private_OpenAiArgument_free(OpenAiArgument *self);
+
+
+

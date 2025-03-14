@@ -2,8 +2,9 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../../imports/imports.typesC.h"
+#include "../../imports/imports.typesD.h"
 //silver_chain_scope_end
+
 
 #ifdef OPEN_AI_ALLOW_DTW
 void OpenAiInterface_set_cache(OpenAiInterface *self,const char *cache_dir,bool preserve_meta_info);

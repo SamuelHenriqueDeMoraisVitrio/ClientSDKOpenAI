@@ -2,8 +2,9 @@
 //DONT MODIFY THIS COMMENT
 //this import is computationally generated
 //mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
-#include "../../imports/imports.typesC.h"
+#include "../../imports/imports.typesD.h"
 //silver_chain_scope_end
+
 
 
 void OpenAiInterface_add_temp_system_prompt(OpenAiInterface *self, const char *prompt);
