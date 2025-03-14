@@ -71,7 +71,6 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
     max_questions++;
 
     OpenAiResponse *response = OpenAiInterface_make_question(self);
-
     if(OpenAiResponse_error(response)){
       return NULL;
     }
@@ -81,13 +80,24 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
       return response;
     }
 
+    OpenAiInterface_add_response_to_history(self, response, 0);
+    
     long size_array = 0;
     cJSON *tool_calls = OpenAiResponse_get_tool_calls(response, 0, &size_array);
 
     for(int i=0; i < size_array; i++){
       const char *id = OpenAiResponse_get_id_tool_calls_by_index(response, 0, i);
+      if(!id){
+        return NULL;
+      }
       const char *name = OpenAiResponse_get_name_func_tool_calls_by_index(response, 0, i);
+      if(!name){
+        return NULL;
+      }
       const char *arguments = OpenAiResponse_get_arguments_func_tool_calls_by_index(response, 0, i);
+      if(!arguments){
+        return NULL;
+      }
 
       const char *response_callback = OpenAiInterface_run_callback_by_index(self, name, arguments);
 
@@ -100,8 +110,8 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
 
 
 void  OpenAiInterface_add_response_to_history(OpenAiInterface *self, OpenAiResponse *response,int choice){   
-   cJSON *message = OpenAiResponse_get_message(response,choice);
-    cJSON *copy = cJSON_Duplicate(message,1);
-    cJSON_AddItemToArray(self->messages, copy);
+  cJSON *message = OpenAiResponse_get_message(response,choice);
+  cJSON *copy = cJSON_Duplicate(message,1);
+  cJSON_AddItemToArray(self->messages, copy);
 }
 

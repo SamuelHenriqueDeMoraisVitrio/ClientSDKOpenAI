@@ -21,6 +21,7 @@ typedef struct OpenAiCallback{
   const char *name_function;
   char *index_name;
   long index;
+  bool check_heap;
 }OpenAiCallback;
 
 

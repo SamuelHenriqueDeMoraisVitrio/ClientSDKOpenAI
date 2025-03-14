@@ -17,10 +17,12 @@ cJSON *OpenAiResponse_get_tool_calls(OpenAiResponse *response, long choice, long
   cJSON *tool_calls = cJSON_GetObjectItemCaseSensitive(message, "tool_calls");
 
   if(size_array){
+    if(!tool_calls){
+      *size_array = 0;
+    }
     if(tool_calls){
       *size_array = cJSON_GetArraySize(tool_calls);
     }
-    *size_array = 0;
   }
 
   return tool_calls;

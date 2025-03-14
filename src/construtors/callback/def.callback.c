@@ -12,7 +12,8 @@
 OpenAiCallback *new_OpenAiCallback(
   char *(*Lambda)(cJSON *args),
   const char *name_func,
-  const char *description
+  const char *description,
+  bool check_heap
 ){
   OpenAiCallback *self = BearsslHttps_allocate(sizeof(OpenAiCallback));
   if(!self){
@@ -28,7 +29,7 @@ OpenAiCallback *new_OpenAiCallback(
   self->description = description;
 
   self->size_parameters = 0;
-  self->parameters = BearsslHttps_allocate(1);
+  self->parameters = BearsslHttps_allocate(sizeof(OpenAiArgument *));
 
   if(!self->parameters){
     BearsslHttps_free(self);
@@ -36,6 +37,8 @@ OpenAiCallback *new_OpenAiCallback(
   }
   
   *self->parameters = (OpenAiArgument*){0};
+
+  self->check_heap = check_heap;
   
   return self;
 }

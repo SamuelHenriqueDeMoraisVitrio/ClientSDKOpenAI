@@ -13,7 +13,7 @@ int OpenAiInterface_add_callback_function_by_tools(
 ){
 
   callback->index = self->size_callbakcs;
-
+  
   cJSON *tool_object = private_OpenAiInterface_create_tool_object(
     callback,
     "function",
@@ -22,11 +22,13 @@ int OpenAiInterface_add_callback_function_by_tools(
   );
 
   if(!tool_object){
+    OpenAiCallback_free(callback);
     return 0;
   }
 
   OpenAiCallback **now_struct = BearsslHttps_reallocate(self->callbacks, sizeof(OpenAiCallback *) * (self->size_callbakcs + 1));
-  if(!self->callbacks){
+  if(!now_struct){
+    OpenAiCallback_free(callback);
     return 0;
   }
 
@@ -35,7 +37,7 @@ int OpenAiInterface_add_callback_function_by_tools(
   self->size_callbakcs++;
 
   OpenAiInterface_add_tools_raw(self, tool_object);
-
+  
   return 1;
 }
 
@@ -79,6 +81,9 @@ char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *n
   cJSON *arguments = cJSON_Parse(args);
   char *response = lambda->Lambda(arguments);
   cJSON_Delete(arguments);
+  if(lambda->check_heap){
+    BearsslHttps_free(response);
+  }
   return response;
 }
 

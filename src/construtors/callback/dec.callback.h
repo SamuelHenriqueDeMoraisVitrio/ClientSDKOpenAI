@@ -11,7 +11,8 @@
 OpenAiCallback *new_OpenAiCallback(
   char *(*Lambda)(cJSON *args),
   const char *name_func,
-  const char *description
+  const char *description,
+  bool check_heap
 );
 
 void OpenAiCallback_free(OpenAiCallback *self);
