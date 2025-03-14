@@ -24,11 +24,12 @@ This project is a lightweight and efficient SDK for interacting with OpenAI's AP
 \#\#\# Simple QUestion:
 
 ```c
-{darwin.dtw.load_file(path_examples .. "question/main.c")}
+{darwin.dtw.load_file(path_examples .. "/question/main.c")}
 ```
 
 \#\#\# Calbacks:
 
 ```c
-{darwin.dtw.load_file(path_examples .. "callback/main.c")}
+{darwin.dtw.load_file(path_examples .. "/callback/main.c")}
 ```
+
