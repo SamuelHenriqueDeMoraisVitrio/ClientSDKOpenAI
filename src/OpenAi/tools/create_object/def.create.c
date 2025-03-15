@@ -19,7 +19,7 @@ cJSON *private_OpenAiInterface_create_tool_object(
   cJSON *function = cJSON_AddObjectToObject(tool_object, "function");
 
   long sizing_index_name = snprintf(NULL, 0, "%ld_%s", self->index, self->name_function) + 1;
-  self->index_name = BearsslHttps_allocate(sizing_index_name);
+  self->index_name = (char *)BearsslHttps_allocate(sizing_index_name);
   if(!self->index_name){
     cJSON_Delete(tool_object);
     return NULL;

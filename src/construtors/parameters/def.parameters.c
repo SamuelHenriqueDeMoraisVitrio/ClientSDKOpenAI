@@ -16,7 +16,7 @@ OpenAiArgument *private_new_OpenAiArgument(
   const char *type,
   bool required
 ){
-  OpenAiArgument *self = BearsslHttps_allocate(sizeof(OpenAiArgument));
+  OpenAiArgument *self = (OpenAiArgument *)BearsslHttps_allocate(sizeof(OpenAiArgument));
   if(!self){
     printf("\n\tErrro:. Allocate struct OpenAiArgument in error.\n");
     exit(1);

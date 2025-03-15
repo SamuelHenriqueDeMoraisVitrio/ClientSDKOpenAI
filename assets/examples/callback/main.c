@@ -17,14 +17,14 @@ char *biggest_country(cJSON *args, void *pointer){
   printf("\nIn LAMBDA:\n\tArguments of OpenAi:\n%s\n:Out to LAMBDA\n", message);
   free(message);
 
-  return "Brazil";
+  return (char *)"Brazil";
 }
 
 int main(){
 
   OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
   
-  char *name = BearsslHttps_allocate(strlen("Name") + 1);
+  char *name = (char *)BearsslHttps_allocate(strlen("Name") + 1);
   OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, "biggest_country", "Returns the name of the largest country in real time.", false);
   /*
    * 1 - LAMBDA

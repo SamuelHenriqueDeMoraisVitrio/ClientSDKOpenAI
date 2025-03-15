@@ -26,7 +26,7 @@ int OpenAiInterface_add_callback_function_by_tools(
     return 0;
   }
 
-  OpenAiCallback **now_struct = BearsslHttps_reallocate(self->callbacks, sizeof(OpenAiCallback *) * (self->size_callbakcs + 1));
+  OpenAiCallback **now_struct = (OpenAiCallback **)BearsslHttps_reallocate(self->callbacks, sizeof(OpenAiCallback *) * (self->size_callbakcs + 1));
   if(!now_struct){
     OpenAiCallback_free(callback);
     return 0;
@@ -51,7 +51,7 @@ int OpenAiInterface_add_parameters_in_callback(
   
   OpenAiArgument *now_argument = private_new_OpenAiArgument(name_argument, description, type, required);
 
-  OpenAiArgument **arguments = BearsslHttps_reallocate(callback->parameters, sizeof(OpenAiArgument*) * (callback->size_parameters + 1));
+  OpenAiArgument **arguments = (OpenAiArgument **)BearsslHttps_reallocate(callback->parameters, sizeof(OpenAiArgument*) * (callback->size_parameters + 1));
   if(!arguments){
     private_OpenAiArgument_free(now_argument);
     return 0;

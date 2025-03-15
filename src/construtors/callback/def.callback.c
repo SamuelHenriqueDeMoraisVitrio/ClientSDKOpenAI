@@ -16,7 +16,7 @@ OpenAiCallback *new_OpenAiCallback(
   const char *description,
   bool check_heap
 ){
-  OpenAiCallback *self = BearsslHttps_allocate(sizeof(OpenAiCallback));
+  OpenAiCallback *self = (OpenAiCallback *)BearsslHttps_allocate(sizeof(OpenAiCallback));
   if(!self){
     printf("\n\tError:. allocate struct OpenAiCallback in error;\n");
     exit(1);
@@ -30,7 +30,7 @@ OpenAiCallback *new_OpenAiCallback(
   self->description = description;
 
   self->size_parameters = 0;
-  self->parameters = BearsslHttps_allocate(sizeof(OpenAiArgument *));
+  self->parameters = (OpenAiArgument **)BearsslHttps_allocate(sizeof(OpenAiArgument *));
 
   if(!self->parameters){
     BearsslHttps_free(self);

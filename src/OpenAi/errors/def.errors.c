@@ -19,7 +19,8 @@ bool OpenAiResponse_error(OpenAiResponse *response){
 
 char *OpenAiResponse_get_error_message(OpenAiResponse *response){
     if(response == NULL){
-        return "Response Invalid;";
+        char *response_temp = (char *)"Response Invalid;";
+        return response_temp;
     }
     cJSON *error = cJSON_GetObjectItem(response, "error");
     if(error == NULL){

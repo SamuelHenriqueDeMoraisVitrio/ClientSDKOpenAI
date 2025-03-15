@@ -12,7 +12,7 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
   self->request = newBearHttpsRequest(url);
   OpenAiInterface_set_know_ips(self, url);
   BearHttpsRequest_set_method(self->request, "POST");
-  BearHttpsRequest_add_header_fmt(self->request, "Authorization", "Bearer %s",apiKey);
+  BearHttpsRequest_add_header_fmt(self->request, (char *)"Authorization", (char *)"Bearer %s", apiKey);
   //set cache to 0
   self->body_object = BearHttpsRequest_create_cJSONPayloadObject(self->request);
   self->messages = cJSON_CreateArray();
@@ -25,7 +25,7 @@ OpenAiInterface *newOpenAiInterface(const char *url, const char *apiKey,const ch
   self->response_array = cJSON_CreateArray();
 
   self->size_callbakcs = 0;
-  self->callbacks = BearsslHttps_allocate(sizeof(OpenAiCallback *));
+  self->callbacks = (OpenAiCallback **)BearsslHttps_allocate(sizeof(OpenAiCallback *));
   if(!self->callbacks){
     OpenAiInterface_free(self);
     return NULL;
