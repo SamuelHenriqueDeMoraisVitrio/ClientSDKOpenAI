@@ -4,23 +4,23 @@
 
 ##   Getting Started:
 
-1 - Create a project folder and navigate to it:
+#### 1 - Create a project folder and navigate to it:
 
 ```bash
 mkdir my_project
 cd my_project
 ```
-2 - Download  [BearHttpsClientOne](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) with the following command:
+#### 2 - Download  [BearHttpsClientOne](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) with the following command:
 
 ```bash
 curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c  -o BearHttpsClientOne.c 
 ```
-3 - Download [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c) with the following command:
+#### 3 - Download [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c) with the following command:
 
 ```bash
 curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c  -o SDK_OpenAIOne.c 
 ```
-4 - Create a file named `chatbot.c` and copy the following code:
+#### 4 - Create a file named `chatbot.c` and copy the following code:
 
 ```c
 
@@ -65,12 +65,18 @@ int main(int argc, char const *argv[]){
 }
 
 ```
-5 - Compile the code with the following command:
+
+#### 5 Replace yur key with your OpenAI key in the `chatbot.c` file:
+```c
+#define KEY  "your_key"
+```
+
+#### 6 - Compile the code with the following command:
 
 ```bash
-gcc -o chatbot chatbot.c BearHttpsClientOne.c SDK_OpenAIOne.c -lcurl
+gcc -o chatbot chatbot.c 
 ```
-6 - Run the code with the following command:
+#### 7 - Run the code with the following command:
 
 ```bash
 ./chatbot
