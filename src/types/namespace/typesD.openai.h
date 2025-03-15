@@ -8,5 +8,5 @@
 typedef struct OpenAiNamespace{
     
     OpenAiResponseNamespace  response;
-    OpenAiInterfaceNamespace interface; 
+    OpenAiInterfaceNamespace openai_interface; 
 }OpenAiNamespace;

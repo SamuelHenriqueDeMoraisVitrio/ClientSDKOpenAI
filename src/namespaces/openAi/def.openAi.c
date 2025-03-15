@@ -8,7 +8,7 @@
 
 OpenAiNamespace newOpenAiNamespace(){
     OpenAiNamespace self ={0};
-    self.interface = newOpenAiInterfaceNamespace();
+    self.openai_interface = newOpenAiInterfaceNamespace();
     self.response = newOpenAiResponseNamespace();
     return self;
 }
