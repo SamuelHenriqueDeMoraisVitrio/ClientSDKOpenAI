@@ -47,10 +47,10 @@ void OpenAiInterface_add_tool_prompt(OpenAiInterface *self, const char *id_call,
     cJSON *prompt_tool = cJSON_CreateObject();
     cJSON_AddStringToObject(prompt_tool, "role", "tool");
     cJSON_AddStringToObject(prompt_tool, "tool_call_id", id_call);
-    if(content){
-        cJSON_AddNullToObject(prompt_tool, "content");
-    }else{
+    if(!content){
         cJSON_AddStringToObject(prompt_tool, "content", content);
+    }else{
+        cJSON_AddStringToObject(prompt_tool, "content", "");
     }
     OpenAiInterface_add_raw_prompt(self, prompt_tool, true);
 }

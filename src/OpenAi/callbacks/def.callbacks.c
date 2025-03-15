@@ -79,20 +79,13 @@ char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *n
   }
 
   cJSON *arguments = cJSON_Parse(args);
-  char *response = lambda->Lambda(arguments);
+  char *response = lambda->Lambda(arguments, lambda->pointer, lambda->size_pointer);
   cJSON_Delete(arguments);
   if(lambda->check_heap){
     BearsslHttps_free(response);
   }
   return response;
 }
-
-/*
-char *OpenAiInterface_run_callback_by_name(OpenAiInterface *self){
-  
-}
-*/
-
 
 
 

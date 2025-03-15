@@ -10,7 +10,9 @@
 
 
 OpenAiCallback *new_OpenAiCallback(
-  char *(*Lambda)(cJSON *args),
+  char *(*Lambda)(cJSON *args, void *pointer, size_t size_pointer),
+  void *pointer,
+  size_t size_pointer,
   const char *name_func,
   const char *description,
   bool check_heap
@@ -39,6 +41,8 @@ OpenAiCallback *new_OpenAiCallback(
   *self->parameters = (OpenAiArgument*){0};
 
   self->check_heap = check_heap;
+  self->pointer = pointer;
+  self->size_pointer = size_pointer;
   
   return self;
 }

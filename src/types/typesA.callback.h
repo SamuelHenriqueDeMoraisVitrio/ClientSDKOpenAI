@@ -14,7 +14,7 @@ typedef struct OpenAiArgument{
 }OpenAiArgument;
 
 typedef struct OpenAiCallback{
-  char *(*Lambda)(cJSON *args);
+  char *(*Lambda)(cJSON *args, void *pointer, size_t size_pointer);
   const char *description;
   long size_parameters;
   OpenAiArgument **parameters;
@@ -22,6 +22,8 @@ typedef struct OpenAiCallback{
   char *index_name;
   long index;
   bool check_heap;
+  void *pointer;
+  size_t size_pointer;
 }OpenAiCallback;
 
 

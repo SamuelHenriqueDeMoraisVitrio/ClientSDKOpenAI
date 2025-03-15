@@ -5,7 +5,7 @@
 
 #define FIRST_CHOICE  0
 #define URL  "https://api.openai.com/v1/chat/completions"
-#define KEY  "<Key_api>"
+#define KEY  "Key_api"
 #define MODEL  "gpt-3.5-turbo"
 
 int main(){

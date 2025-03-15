@@ -3,13 +3,17 @@
 
 #define FIRST_CHOICE  0
 #define URL  "https://api.openai.com/v1/chat/completions"
-#define KEY  "<Key_api>"
+#define KEY  "Your-Key"
 #define MODEL  "gpt-3.5-turbo"
 
 OpenAiInterface *openAi;
 
-char *biggest_country(cJSON *args){
+char *biggest_country(cJSON *args, void *pointer, size_t size){
 
+  const char *name = "sam";
+  if(!(size < strlen(name) + 1)){
+    memcpy(pointer, name, strlen(name) + 1);
+  }
 
   char *message = cJSON_Print(args);
   printf("\nIn LAMBDA:\n\tArguments of OpenAi:\n%s\n:Out to LAMBDA\n", message);
@@ -22,7 +26,8 @@ int main(){
 
   openAi = newOpenAiInterface(URL, KEY, MODEL);
   
-  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, "biggest_country", "Returns the name of the largest country in real time.", false);
+  char *name = BearsslHttps_allocate(strlen("Name") + 1);
+  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, 5, "biggest_country", "Returns the name of the largest country in real time.", false);
   /*
    * 1 - LAMBDA
    * 2 - Name function
@@ -58,9 +63,11 @@ int main(){
   }
 
   printf("\n\tresponse:\n%s\n", OpenAiResponse_get_content_str(response, 0));
+  printf("\n\tName: %s\n", name);
 
   OpenAiInterface_add_response_to_history(openAi, response, FIRST_CHOICE);
 
+  BearsslHttps_free(name);
   OpenAiInterface_free(openAi);
   return 0;
 }
