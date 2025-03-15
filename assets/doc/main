@@ -54,7 +54,7 @@ If you need a robust AI SDK for C, {Name_lib} is the right choice.
 
 <details>
 
-  <summary><h2>License</h2></summary>
+  <summary><h2>Licenses</h2></summary>
 
   {darwin.dtw.load_file(path_doc .. "licence.md")}
 
