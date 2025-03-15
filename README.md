@@ -43,46 +43,47 @@ curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases
 #### 4 - Create a file named `chatbot.c` and copy the following code:
 
 ```c
+  #include "BearHttpsClientOne.c"
+  #include "SDK_OpenAIOne.c"
 
-#include "BearHttpsClientOne.c"
-#include "SDK_OpenAIOne.c"
+  #define FIRST_CHOICE  0
+  #define URL  "https://api.openai.com/v1/chat/completions"
+  #define KEY  "your_key"
+  #define MODEL  "gpt-3.5-turbo"
 
-#define GREEN  "\033[0;32m"
-#define BLUE  "\033[0;34m"
-#define RED "\033[0;31m"
-#define RESET  "\033[0m"
-#define FIRST_CHOICE  0
-#define URL  "https://api.openai.com/v1/chat/completions"
-#define KEY  "your_key"
-#define MODEL  "gpt-3.5-turbo"
-int main(int argc, char const *argv[]){
+  #define GREEN  "\033[0;32m"
+  #define BLUE  "\033[0;34m"
+  #define RED "\033[0;31m"
+  #define RESET  "\033[0m"
+
+  int main(int argc, char const *argv[]){
 
 
-  OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
-  while (true){
-    char *input = NULL;
-    size_t len = 0;
-    printf(GREEN"Enter your message:"RESET);
-    getline(&input, &len, stdin);
-    
-    OpenAiInterface_add_user_prompt(openAi, input);
+    OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
+    while (true){
+      char *input = NULL;
+      size_t len = 0;
+      printf("%sEnter your message:%s", GREEN, RESET);
+      getline(&input, &len, stdin);
+      
+      OpenAiInterface_add_user_prompt(openAi, input);
 
-    OpenAiResponse *response = OpenAiInterface_make_question(openAi);
-    if(OpenAiResponse_error(response)){
-       printf(RED"Error: %s\n"RESET, OpenAiResponse_get_error_message(response));
-        free(input);
-        OpenAiInterface_free(openAi);
-        exit(1);
+      OpenAiResponse *response = OpenAiInterface_make_question(openAi);
+      if(OpenAiResponse_error(response)){
+        printf("%sError: %s%s\n", RED, OpenAiResponse_get_error_message(response), RESET);
+          free(input);
+          OpenAiInterface_free(openAi);
+          exit(1);
+      }
+      const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
+      printf("%sAnswer: %s%s\n", BLUE, first_answer, RESET);
+      OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
+
+
+      free(input);
+  
     }
-    const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
-    printf(BLUE"Answer: %s\n"RESET, first_answer);
-    OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
-
-
-    free(input);
- 
   }
-}
 
 ```
 
@@ -101,6 +102,7 @@ gcc -o chatbot chatbot.c
 ```bash
 ./chatbot
 ```
+
 
 # Dependencies in your project
 | Item                                                                                                                       | Reason                                                                                        | Description                |
@@ -168,12 +170,10 @@ int main(){
 #define KEY  "Your-Key"
 #define MODEL  "gpt-3.5-turbo"
 
-OpenAiInterface *openAi;
-
-char *biggest_country(cJSON *args, void *pointer, size_t size){
+char *biggest_country(cJSON *args, void *pointer){
 
   const char *name = "sam";
-  if(!(size < strlen(name) + 1)){
+  if(!(5 < strlen(name) + 1)){
     memcpy(pointer, name, strlen(name) + 1);
   }
 
@@ -181,19 +181,18 @@ char *biggest_country(cJSON *args, void *pointer, size_t size){
   printf("\nIn LAMBDA:\n\tArguments of OpenAi:\n%s\n:Out to LAMBDA\n", message);
   free(message);
 
-  return "Brazil";
+  return (char *)"Brazil";
 }
 
 int main(){
 
-  openAi = newOpenAiInterface(URL, KEY, MODEL);
+  OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
   
-  char *name = BearsslHttps_allocate(strlen("Name") + 1);
-  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, 5, "biggest_country", "Returns the name of the largest country in real time.", false);
+  char *name = (char *)BearsslHttps_allocate(strlen("Name") + 1);
+  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, "biggest_country", "Returns the name of the largest country in real time.", false);
   /*
    * 1 - LAMBDA
    * 2 - void *pointer
-   * 3 - size void *pointer
    * 4 - Description function
    * 5 - Check Heap returned
    * return Is possible callback;
@@ -242,14 +241,16 @@ int main(){
 #include "BearHttpsClientOne.c"
 #include "SDK_OpenAIOne.c"
 
-#define GREEN  "\033[0;32m"
-#define BLUE  "\033[0;34m"
-#define RED "\033[0;31m"
-#define RESET  "\033[0m"
 #define FIRST_CHOICE  0
 #define URL  "https://api.openai.com/v1/chat/completions"
 #define KEY  "your_key"
 #define MODEL  "gpt-3.5-turbo"
+
+#define GREEN  "\033[0;32m"
+#define BLUE  "\033[0;34m"
+#define RED "\033[0;31m"
+#define RESET  "\033[0m"
+
 int main(int argc, char const *argv[]){
 
 
@@ -257,20 +258,20 @@ int main(int argc, char const *argv[]){
   while (true){
     char *input = NULL;
     size_t len = 0;
-    printf(GREEN"Enter your message:"RESET);
+    printf("%sEnter your message:%s", GREEN, RESET);
     getline(&input, &len, stdin);
     
     OpenAiInterface_add_user_prompt(openAi, input);
 
     OpenAiResponse *response = OpenAiInterface_make_question(openAi);
     if(OpenAiResponse_error(response)){
-       printf(RED"Error: %s\n"RESET, OpenAiResponse_get_error_message(response));
+       printf("%sError: %s%s\n", RED, OpenAiResponse_get_error_message(response), RESET);
         free(input);
         OpenAiInterface_free(openAi);
         exit(1);
     }
     const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
-    printf(BLUE"Answer: %s\n"RESET, first_answer);
+    printf("%sAnswer: %s%s\n", BLUE, first_answer, RESET);
     OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
 
 
