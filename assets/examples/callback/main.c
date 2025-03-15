@@ -6,12 +6,10 @@
 #define KEY  "Your-Key"
 #define MODEL  "gpt-3.5-turbo"
 
-OpenAiInterface *openAi;
-
-char *biggest_country(cJSON *args, void *pointer, size_t size){
+char *biggest_country(cJSON *args, void *pointer){
 
   const char *name = "sam";
-  if(!(size < strlen(name) + 1)){
+  if(!(5 < strlen(name) + 1)){
     memcpy(pointer, name, strlen(name) + 1);
   }
 
@@ -24,14 +22,13 @@ char *biggest_country(cJSON *args, void *pointer, size_t size){
 
 int main(){
 
-  openAi = newOpenAiInterface(URL, KEY, MODEL);
+  OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
   
   char *name = BearsslHttps_allocate(strlen("Name") + 1);
-  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, 5, "biggest_country", "Returns the name of the largest country in real time.", false);
+  OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, "biggest_country", "Returns the name of the largest country in real time.", false);
   /*
    * 1 - LAMBDA
    * 2 - void *pointer
-   * 3 - size void *pointer
    * 4 - Description function
    * 5 - Check Heap returned
    * return Is possible callback;
