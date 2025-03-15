@@ -11,32 +11,43 @@
 #define RED "\033[0;31m"
 #define RESET  "\033[0m"
 
-int main(int argc, char const *argv[]){
-
-
-  OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
-  while (true){
-    char *input = NULL;
-    size_t len = 0;
-    printf("%sEnter your message:%s", GREEN, RESET);
-    getline(&input, &len, stdin);
-    
-    OpenAiInterface_add_user_prompt(openAi, input);
-
-    OpenAiResponse *response = OpenAiInterface_make_question(openAi);
-    if(OpenAiResponse_error(response)){
-       printf("%sError: %s%s\n", RED, OpenAiResponse_get_error_message(response), RESET);
-        free(input);
-        OpenAiInterface_free(openAi);
-        exit(1);
+void colect_user_imput(char *input,int max_size){
+  for(int i = 0; i < max_size; i++){
+    char c = getchar();
+    if(c == '\n'){
+      input[i] = '\0';
+      break;
     }
-    const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
-    printf("%sAnswer: %s%s\n", BLUE, first_answer, RESET);
-    OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
-
-
-    free(input);
- 
+    input[i] = c;
   }
 }
 
+int main(int argc, char const *argv[]){
+
+
+    OpenAiInterface *openAi = newOpenAiInterface(URL, KEY, MODEL);
+    while (true){
+      printf("%sEnter your message:%s", GREEN, RESET);
+
+     char input[1000] ={0};
+     colect_user_imput(input,sizeof(input)-1);
+     if(strcmp(input,"exit") == 0){
+       break;
+    }     
+
+
+      
+      OpenAiInterface_add_user_prompt(openAi, input);
+
+      OpenAiResponse *response = OpenAiInterface_make_question(openAi);
+      if(OpenAiResponse_error(response)){
+         printf("%sError: %s%s\n", RED, OpenAiResponse_get_error_message(response), RESET);
+         break;
+      }
+      const char *first_answer = OpenAiResponse_get_content_str(response,FIRST_CHOICE);
+      printf("%sAnswer: %s%s\n", BLUE, first_answer, RESET);
+      OpenAiInterface_add_response_to_history(openAi, response,FIRST_CHOICE);
+  
+    }
+      OpenAiInterface_free(openAi);
+  }
