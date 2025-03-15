@@ -1,6 +1,8 @@
 
 
-\#\# Getting Started:
+
+
+##   Getting Started:
 
 1 - Create a project folder and navigate to it:
 
