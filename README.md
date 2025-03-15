@@ -1,80 +1,33 @@
 # SDK_OpenAI
-This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
+## The OpenAI SDK for C You've Always Wanted
+If you've ever tried integrating the OpenAI API in C, you know it can be a tedious process. That’s why we created SDK_OpenAI, a lightweight, powerful, and flexible SDK designed to simplify using the OpenAI API (or similar services) in C applications.
 
+## What does SDK_OpenAI do for you?
+With it, you can:
+- Send prompts easily and efficiently.
+- Define context windows to maintain conversation coherence.
+- Use lambdas to process responses dynamically.
+- Configure and fine-tune prompts effortlessly.
+- Handle HTTPs requests seamlessly.
+All of this with an intuitive and performance-optimized API, ensuring your code stays clean and efficient.
 
-## Recommendation
-It is strongly suggested that you know at least c and the OpenAi API.
-
----
-
-
-<details>
-
-  <summary><h2>BUILD</h2></summary>
-
-  ---
-
-If you want to compile the project, you can run the following command:
-```bash
-sh build.sh
-```
-
-Or you can build it manually. To do this, you need to have Darwin installed on your computer or in your project. It is recommended to use version 0.20 or higher.
-### Local Installation:
-```bash
-curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.020/darwin.out -o darwin && chmod +x darwin
-```
-
-### Global Installation:
-```bash
-curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.020/darwin.out -o darwin && chmod +x darwin && sudo mv darwin /usr/bin
-```
-
-### Building:
-
-Then, run the following command:
-- For Local execution: **./darwin**
-- For Global execution: **darwin**
-
-To make the complete build.
-```bash
-./darwin run_blueprint build -mode folder
-```
-The final binary will be located in the releases folder.
-
-The build is separated into sectors such as, building README.md, compilation, ...
-If you want to build a specific sector I recommend doing:
-```bash
-./darwin run_blueprint build -mode folder help
-```
-This will write all sector instructions to the screen.
-
-
-</details>
-
-# Compilation
-
-```bash
-gcc name_your_project -o name_out
-```
----
+## Why use SDK_OpenAI?
+**Simplicity** - Integrate AI into your project without hassle.
+**Efficiency** - Low resource consumption and high performance.
+**Flexibility** - Adapt the OpenAI API usage to your needs.
+**Productivity** - Spend less time dealing with technical details and more time creating.
+If you need a robust AI SDK for C, SDK_OpenAI is the right choice.
 
 # Dependencies in your project
-| Item     | Description                                                                                        |
-|----------|----------------------------------------------------------------------------------------------------|
-| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)    | Single File Version |
-| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)       | Definitions         |
-| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)       | Declaration         |
-
----
-
-# Install
-
-For Instalation, just download the files [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) and
-[SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI/releases/download/0.0.2/SDK_OpenAIOne.c) at the same dir.
-
-Note that , these its a simple example, read the [BearHttpsClient](https://github.com/OUIsolutions/BearHttpsClient) for making
-more complex builds.
+| Item                                                                                                                   | Reason                                                                                        | Description                |
+|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------|
+| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                   | If you want to import the project with a single file.                                         | self                       |
+| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                      | Inclusion of separate definition and declaration.                                             | self - definition          |
+| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                      | Inclusion of separate definition and declaration.                                             | self - declaration         |
+| [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) | If you want to import the dependency with a single file.                                      | Dependencie - Client Https |
+| [BearHttpsClient.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.c)       | Inclusion of separate definition and declaration.                                             | Dependencie - definition   |
+| [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.h)       | Inclusion of separate definition and declaration.                                             | Dependencie - declaration  |
+| [doTheWorld.h](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h)                       | Include this dependency only if you are going to use the cache system available from the lib. | Dependencie - For cache    |
 
 ---
 
@@ -245,4 +198,47 @@ int main(int argc, char const *argv[]){
 
 ```
 
+<details>
+
+  <summary><h2>BUILD</h2></summary>
+
+  ---
+
+If you want to compile the project, you can run the following command:
+```bash
+sh build.sh
+```
+
+Or you can build it manually. To do this, you need to have Darwin installed on your computer or in your project. It is recommended to use version 0.20 or higher.
+### Local Installation:
+```bash
+curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.020/darwin.out -o darwin && chmod +x darwin
+```
+
+### Global Installation:
+```bash
+curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.020/darwin.out -o darwin && chmod +x darwin && sudo mv darwin /usr/bin
+```
+
+### Building:
+
+Then, run the following command:
+- For Local execution: **./darwin**
+- For Global execution: **darwin**
+
+To make the complete build.
+```bash
+./darwin run_blueprint build -mode folder
+```
+The final binary will be located in the releases folder.
+
+The build is separated into sectors such as, building README.md, compilation, ...
+If you want to build a specific sector I recommend doing:
+```bash
+./darwin run_blueprint build -mode folder help
+```
+This will write all sector instructions to the screen.
+
+
+</details>
 
