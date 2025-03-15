@@ -19,15 +19,15 @@ All of this with an intuitive and performance-optimized API, ensuring your code 
 If you need a robust AI SDK for C, SDK_OpenAI is the right choice.
 
 # Dependencies in your project
-| Item                                                                                                                   | Reason                                                                                        | Description                |
-|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------|
-| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                   | If you want to import the project with a single file.                                         | self                       |
-| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                      | Inclusion of separate definition and declaration.                                             | self - definition          |
-| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/BearSSL_sdkOpenAI)                                      | Inclusion of separate definition and declaration.                                             | self - declaration         |
-| [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) | If you want to import the dependency with a single file.                                      | Dependencie - Client Https |
-| [BearHttpsClient.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.c)       | Inclusion of separate definition and declaration.                                             | Dependencie - definition   |
-| [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.h)       | Inclusion of separate definition and declaration.                                             | Dependencie - declaration  |
-| [doTheWorld.h](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h)                       | Include this dependency only if you are going to use the cache system available from the lib. | Dependencie - For cache    |
+| Item                                                                                                                       | Reason                                                                                        | Description                |
+|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------|
+| [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c) | If you want to import the project with a single file.                                         | self                       |
+| [SDK_OpenAI.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAI.c)       | Inclusion of separate definition and declaration.                                             | self - definition          |
+| [SDK_OpenAI.h](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAI.h)       | Inclusion of separate definition and declaration.                                             | self - declaration         |
+| [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c)     | If you want to import the dependency with a single file.                                      | Dependencie - Client Https |
+| [BearHttpsClient.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.c)           | Inclusion of separate definition and declaration.                                             | Dependencie - definition   |
+| [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClient.h)           | Inclusion of separate definition and declaration.                                             | Dependencie - declaration  |
+| [doTheWorld.h](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h)                           | Include this dependency only if you are going to use the cache system available from the lib. | Dependencie - For cache    |
 
 ---
 
@@ -244,7 +244,7 @@ This will write all sector instructions to the screen.
 
 <details>
 
-  <summary><h2>License</h2></summary>
+  <summary><h2>Licenses</h2></summary>
 
   
 # BearClient
