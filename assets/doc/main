@@ -41,6 +41,16 @@ If you need a robust AI SDK for C, {Name_lib} is the right choice.
 {darwin.dtw.load_file(path_examples .. "callback/main.c")}
 ```
 
+\#\#\# Cache Usage:
+if you want to use the cache, you need to have [DoTheWorld](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h) downloaded and included in your project.
+and you can configure the cache with the function **OpenAiInterface_set_cache**
+ 
+```c
+{darwin.dtw.load_file(path_examples .. "cache/main.c")}
+```
+
+
+
 \#\#\# Minimal Chat Bot exampe
 ```c
 {darwin.dtw.load_file(path_examples .. "chatBot/main.c")}
