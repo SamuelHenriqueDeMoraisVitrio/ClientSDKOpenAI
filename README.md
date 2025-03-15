@@ -35,10 +35,10 @@ cd my_project
 ```bash
 curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c  -o BearHttpsClientOne.c 
 ```
-#### 3 - Download [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c) with the following command:
+#### 3 - Download [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.5/SDK_OpenAIOne.c) with the following command:
 
 ```bash
-curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.4/SDK_OpenAIOne.c  -o SDK_OpenAIOne.c 
+curl -L https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.5/SDK_OpenAIOne.c  -o SDK_OpenAIOne.c 
 ```
 #### 4 - Create a file named `chatbot.c` and copy the following code:
 
