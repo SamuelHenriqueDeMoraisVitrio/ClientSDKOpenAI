@@ -155,9 +155,10 @@ int main(){
   OpenAiCallback *callback = new_OpenAiCallback(biggest_country, name, 5, "biggest_country", "Returns the name of the largest country in real time.", false);
   /*
    * 1 - LAMBDA
-   * 2 - Name function
-   * 3 - Description function
-   * 4 - Check Heap returned
+   * 2 - void *pointer
+   * 3 - size void *pointer
+   * 4 - Description function
+   * 5 - Check Heap returned
    * return Is possible callback;
   */
   if(!callback){
