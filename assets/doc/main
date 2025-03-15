@@ -23,6 +23,7 @@ All of this with an intuitive and performance-optimized API, ensuring your code 
 **Productivity** - Spend less time dealing with technical details and more time creating.
 If you need a robust AI SDK for C, {Name_lib} is the right choice.
 
+
 {darwin.dtw.load_file(path_doc .. "dependencies.md")}
 
 \#\# Examples:
