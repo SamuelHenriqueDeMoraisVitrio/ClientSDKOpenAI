@@ -1,25 +1,29 @@
-
-\# {Name_lib}
-This project is a lightweight and efficient SDK for interacting with OpenAI's API in C
-
 {%
   local path_doc = "assets/doc/"
   local path_examples = "assets/examples/"
 }
 
-{darwin.dtw.load_file(path_doc .. "start.md")}
+\# {Name_lib}
+\#\# The OpenAI SDK for C You've Always Wanted
+If you've ever tried integrating the OpenAI API in C, you know it can be a tedious process. That’s why we created {Name_lib}, a lightweight, powerful, and flexible SDK designed to simplify using the OpenAI API (or similar services) in C applications.
 
-<details>
+\#\# What does {Name_lib} do for you?
+With it, you can:
+- Send prompts easily and efficiently.
+- Define context windows to maintain conversation coherence.
+- Use lambdas to process responses dynamically.
+- Configure and fine-tune prompts effortlessly.
+- Handle HTTPs requests seamlessly.
+All of this with an intuitive and performance-optimized API, ensuring your code stays clean and efficient.
 
-  <summary><h2>BUILD</h2></summary>
+\#\# Why use {Name_lib}?
+**Simplicity** - Integrate AI into your project without hassle.
+**Efficiency** - Low resource consumption and high performance.
+**Flexibility** - Adapt the OpenAI API usage to your needs.
+**Productivity** - Spend less time dealing with technical details and more time creating.
+If you need a robust AI SDK for C, {Name_lib} is the right choice.
 
-  {darwin.dtw.load_file(path_doc .. "build.md")}
-
-</details>
-
-{darwin.dtw.load_file(path_doc .. "compilation.md")}
 {darwin.dtw.load_file(path_doc .. "dependencies.md")}
-{darwin.dtw.load_file(path_doc .. "install.md")}
 
 \#\# Examples:
 
@@ -40,4 +44,11 @@ This project is a lightweight and efficient SDK for interacting with OpenAI's AP
 {darwin.dtw.load_file(path_examples .. "chatBot/main.c")}
 ```
 
+<details>
+
+  <summary><h2>BUILD</h2></summary>
+
+  {darwin.dtw.load_file(path_doc .. "build.md")}
+
+</details>
 
