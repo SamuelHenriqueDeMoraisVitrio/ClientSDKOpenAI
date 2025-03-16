@@ -263,10 +263,9 @@ if you want to use the cache, you need to have [DoTheWorld](https://github.com/O
 and you can configure the cache with the function **OpenAiInterface_set_cache**
  
 ```c
-
-#include "BearHttpsClientOne.c"
 #define OPEN_AI_ALLOW_DTW
-#include "doTheWorld.h"
+#include "doTheWorldOne.c"
+#include "BearHttpsClientOne.c"
 #include "SDK_OpenAIOne.c"
 
 #define FIRST_CHOICE  0
