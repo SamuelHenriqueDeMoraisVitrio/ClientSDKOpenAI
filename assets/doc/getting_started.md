@@ -10,10 +10,10 @@
 mkdir my_project
 cd my_project
 ```
-#### 2 - Download  [BearHttpsClientOne](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c) with the following command:
+#### 2 - Download  [BearHttpsClientOne](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.002/BearHttpsClientOne.c) with the following command:
 
 ```bash
-curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.001/BearHttpsClientOne.c  -o BearHttpsClientOne.c 
+curl -L https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.002/BearHttpsClientOne.c  -o BearHttpsClientOne.c 
 ```
 #### 3 - Download [SDK_OpenAIOne.c](https://github.com/SamuelHenriqueDeMoraisVitrio/ClientSDKOpenAI/releases/download/0.0.6/SDK_OpenAIOne.c) with the following command:
 
