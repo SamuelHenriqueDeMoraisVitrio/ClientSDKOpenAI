@@ -42,7 +42,7 @@ If you need a robust AI SDK for C, {Name_lib} is the right choice.
 ```
 
 \#\#\# Cache Usage:
-if you want to use the cache, you need to have [DoTheWorld](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h) downloaded and included in your project.
+if you want to use the cache, you need to have [DoTheWorld](https://github.com/OUIsolutions/DoTheWorld/releases/download/9.0.002/doTheWorldOne.c) downloaded and included in your project.
 and you can configure the cache with the function **OpenAiInterface_set_cache**
  
 ```c

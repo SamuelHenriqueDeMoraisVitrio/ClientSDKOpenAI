@@ -135,7 +135,7 @@ cl.exe -o chatbot chatbot.c
 | [BearHttpsClientOne.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.002/BearHttpsClientOne.c)     | If you want to import the dependency with a single file.                                      | Dependencie - Client Https |
 | [BearHttpsClient.c](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.002/BearHttpsClient.c)           | Inclusion of separate definition and declaration.                                             | Dependencie - definition   |
 | [BearHttpsClient.h](https://github.com/OUIsolutions/BearHttpsClient/releases/download/0.2.002/BearHttpsClient.h)           | Inclusion of separate definition and declaration.                                             | Dependencie - declaration  |
-| [doTheWorld.h](https://github.com/OUIsolutions/DoTheWorld/releases/download/9.0.002/doTheWorld.h)                           | Include this dependency only if you are going to use the cache system available from the lib. | Dependencie - For cache    |
+| [doTheWorld.h](https://github.com/OUIsolutions/DoTheWorld/releases/download/9.0.002/doTheWorldOne.c)                           | Include this dependency only if you are going to use the cache system available from the lib. | Dependencie - For cache    |
 
 ---
 
@@ -259,7 +259,7 @@ int main(){
 ```
 
 ### Cache Usage:
-if you want to use the cache, you need to have [DoTheWorld](https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h) downloaded and included in your project.
+if you want to use the cache, you need to have [DoTheWorld](https://github.com/OUIsolutions/DoTheWorld/releases/download/9.0.002/doTheWorldOne.c) downloaded and included in your project.
 and you can configure the cache with the function **OpenAiInterface_set_cache**
  
 ```c
