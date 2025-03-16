@@ -1,7 +1,6 @@
-
-#include "BearHttpsClientOne.c"
 #define OPEN_AI_ALLOW_DTW
-#include "doTheWorld.h"
+#include "doTheWorldOne.c"
+#include "BearHttpsClientOne.c"
 #include "SDK_OpenAIOne.c"
 
 #define FIRST_CHOICE  0
