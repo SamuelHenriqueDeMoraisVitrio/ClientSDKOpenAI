@@ -100,7 +100,6 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
       }
 
       const char *response_callback = OpenAiInterface_run_callback_by_index(self, name, arguments);
-
       OpenAiInterface_add_tool_prompt(self, id, response_callback);
     }
   }
