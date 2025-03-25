@@ -18,7 +18,7 @@ int OpenAiInterface_add_callback_function_by_tools(
     callback,
     "function",
     false,
-    true
+    false
   );
 
   if(!tool_object){
