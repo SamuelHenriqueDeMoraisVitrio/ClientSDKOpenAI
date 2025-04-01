@@ -100,8 +100,13 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
       }
       bool release_response_callback = false;
       char *response_callback = OpenAiInterface_run_callback_by_index(self, name, arguments,&release_response_callback);
-      OpenAiInterface_add_tool_prompt(self, id, response_callback);
-      if(release_response_callback){
+      if(response_callback){
+        OpenAiInterface_add_tool_prompt(self, id, response_callback);        
+      }
+      else{
+        OpenAiInterface_add_tool_prompt(self, id, "Error in callback");
+      }
+      if(release_response_callback && response_callback){
         free(response_callback);
       }
     }
