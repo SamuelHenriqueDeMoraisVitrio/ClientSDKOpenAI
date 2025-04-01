@@ -98,9 +98,12 @@ OpenAiResponse *OpenAiInterface_make_question_finish_reason_treated(OpenAiInterf
       if(!arguments){
         return NULL;
       }
-
-      const char *response_callback = OpenAiInterface_run_callback_by_index(self, name, arguments);
+      bool release_response_callback = false;
+      char *response_callback = OpenAiInterface_run_callback_by_index(self, name, arguments,&release_response_callback);
       OpenAiInterface_add_tool_prompt(self, id, response_callback);
+      if(release_response_callback){
+        free(response_callback);
+      }
     }
   }
 

@@ -64,7 +64,7 @@ int OpenAiInterface_add_parameters_in_callback(
   return 1;
 }
 
-char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *name_function, const char *args){
+char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *name_function, const char *args,bool *release){
   
   long index_lambda = private_OpenAiExtra_extract_index(name_function);
 
@@ -82,7 +82,7 @@ char *OpenAiInterface_run_callback_by_index(OpenAiInterface *self, const char *n
   char *response = lambda->Lambda(arguments, lambda->pointer);
   cJSON_Delete(arguments);
   if(lambda->check_heap){
-    BearsslHttps_free(response);
+    *release = true;    
   }
   return response;
 }
