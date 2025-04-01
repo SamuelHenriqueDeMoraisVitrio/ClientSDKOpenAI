@@ -88,9 +88,9 @@ int main(int argc, char const *argv[]){
 ```bash
 gcc -o chatbot chatbot.c 
 ```
-##### mingw64:
+##### Windows:
 ```bash
-i686-w64-mingw32-gcc  -o chatbot chatbot.c  -lws2_32
+gcc -o chatbot chatbot.c -lws2_32
 ```
 ##### MSVC:
 ```bash
